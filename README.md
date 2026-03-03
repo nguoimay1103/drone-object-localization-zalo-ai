@@ -27,17 +27,18 @@ source/
 │   └── requirements.txt             <-- Danh sách thư viện cần thiết
 ├── Slide.pdf
 └── Report.docx
-💻 Yêu cầu hệ thống & Cài đặt
+```text
+## 💻 Yêu cầu hệ thống & Cài đặt
 GPU: Khuyến nghị NVIDIA GPU (Tesla T4, RTX 3060 trở lên) để training.
 
 RAM: Tối thiểu 16GB.
 
 Môi trường: Code đã được tối ưu và kiểm thử tốt nhất trên môi trường Kaggle/Google Colab.
 
-⚠️ LƯU Ý QUAN TRỌNG VỀ DỮ LIỆU (DATASET):
+## ⚠️ LƯU Ý QUAN TRỌNG VỀ DỮ LIỆU (DATASET):
 Do quy định về BẢO MẬT DỮ LIỆU CỦA CUỘC THI, nhóm KHÔNG nộp kèm tập dataset gốc (video/ảnh) trong gói source code này.
 
-🚀 Quy trình thực thi (Pipeline)
+## 🚀 Quy trình thực thi (Pipeline)
 Để tái hiện kết quả, vui lòng chạy các file trong thư mục source/ theo thứ tự sau:
 
 [BƯỚC 1] Chuẩn bị dữ liệu
