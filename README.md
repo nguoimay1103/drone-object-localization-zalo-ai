@@ -1,4 +1,3 @@
-```markdown
 # Object Detection and Localization System from Drone Videos 🚁
 
 **Đồ án môn học:** Thị giác máy tính nâng cao (CS331.Q11)  
