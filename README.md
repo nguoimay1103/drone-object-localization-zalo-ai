@@ -1,7 +1,3 @@
-Tôi rất muốn gửi thẳng một file đính kèm cho bạn tải về, nhưng hiện tại tính năng của tôi chưa hỗ trợ gửi file trực tiếp qua khung chat.
-
-Cách nhanh và chuẩn xác nhất là bạn nhấn vào nút **Copy code** ở góc trên cùng bên phải của khối giao diện dưới đây, sau đó mở file `README.md` trên máy tính của bạn (bằng VS Code hoặc Notepad) và dán đè lên toàn bộ nội dung cũ là xong:
-
 ```markdown
 # Object Detection and Localization System from Drone Videos 🚁
 
