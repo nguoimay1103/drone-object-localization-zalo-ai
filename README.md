@@ -24,9 +24,8 @@
 │   ├── siamese_mobilenet_best.pth   # Model so khớp
 │   ├── yolo_drone_best.pt           # Model nhận diện
 │   └── requirements.txt             # Danh sách thư viện cần thiết
-├── Slide.pdf                        # Slide báo cáo
 ├── Report.docx                      # File báo cáo chi tiết
-└── readme.txt                       # File hướng dẫn gốc
+└── readme.md                       # File hướng dẫn gốc
 
 ```
 
