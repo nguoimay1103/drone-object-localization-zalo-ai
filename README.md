@@ -105,7 +105,3 @@ streamlit run 07_demo_app.py
 *Trân trọng cảm ơn Quý Thầy/Cô đã xem xét đồ án của nhóm!*
 
 ```
-
-Làm xong bước này, bạn gõ 3 lệnh Git để đẩy lên là dự án của bạn trên GitHub sẽ cực kỳ chuẩn chỉnh! Có bước nào bạn thấy vướng mắc nữa không?
-
-```
