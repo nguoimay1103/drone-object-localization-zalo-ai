@@ -28,6 +28,7 @@ source/
 ├── Slide.pdf
 └── Report.docx
 ```text
+
 ## 💻 Yêu cầu hệ thống & Cài đặt
 GPU: Khuyến nghị NVIDIA GPU (Tesla T4, RTX 3060 trở lên) để training.
 
