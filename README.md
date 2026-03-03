@@ -1,3 +1,8 @@
+Tôi rất muốn gửi thẳng một file đính kèm cho bạn tải về, nhưng hiện tại tính năng của tôi chưa hỗ trợ gửi file trực tiếp qua khung chat.
+
+Cách nhanh và chuẩn xác nhất là bạn nhấn vào nút **Copy code** ở góc trên cùng bên phải của khối giao diện dưới đây, sau đó mở file `README.md` trên máy tính của bạn (bằng VS Code hoặc Notepad) và dán đè lên toàn bộ nội dung cũ là xong:
+
+```markdown
 # Object Detection and Localization System from Drone Videos 🚁
 
 **Đồ án môn học:** Thị giác máy tính nâng cao (CS331.Q11)  
@@ -11,80 +16,102 @@
 ## 📂 Cấu trúc thư mục
 
 ```text
-source/     
-├── readme.txt                       <-- File hướng dẫn gốc
-├── 01_data_gen_yolo.ipynb           <-- Tạo dữ liệu giả lập
-├── 02_data_merge_yolo.ipynb         <-- Gộp dữ liệu training
-├── 03_train_yolo.ipynb              <-- Train model YOLO nhận diện
-├── 04_data_prep_matching.ipynb      <-- Chuẩn bị dữ liệu so khớp
-├── 05_train_siamese.ipynb           <-- Train model so khớp
-├── 06_inference_main.ipynb          <-- Chạy suy luận ra kết quả
+.
+├── 01_data_gen_yolo.ipynb           # Tạo dữ liệu giả lập
+├── 02_data_merge_yolo.ipynb         # Gộp dữ liệu training
+├── 03_train_yolo.ipynb              # Train model YOLO nhận diện
+├── 04_data_prep_matching.ipynb      # Chuẩn bị dữ liệu so khớp
+├── 05_train_siamese.ipynb           # Train model so khớp
+├── 06_inference_main.ipynb          # Chạy suy luận ra kết quả
 ├── demo/
-│   ├── data_test_demo/              <-- Dữ liệu chạy thử demo
-│   ├── 07_demo_app.py               <-- Ứng dụng Demo Streamlit
-│   ├── siamese_mobilenet_best.pth   <-- Model so khớp
-│   ├── yolo_drone_best.pt           <-- Model nhận diện
-│   └── requirements.txt             <-- Danh sách thư viện cần thiết
-├── Slide.pdf
-└── Report.docx
-```text
+│   ├── data_test_demo/              # Dữ liệu chạy thử demo
+│   ├── 07_demo_app.py               # Ứng dụng Demo Streamlit
+│   ├── siamese_mobilenet_best.pth   # Model so khớp
+│   ├── yolo_drone_best.pt           # Model nhận diện
+│   └── requirements.txt             # Danh sách thư viện cần thiết
+├── Slide.pdf                        # Slide báo cáo
+├── Report.docx                      # File báo cáo chi tiết
+└── readme.txt                       # File hướng dẫn gốc
+
+```
+
+---
 
 ## 💻 Yêu cầu hệ thống & Cài đặt
-GPU: Khuyến nghị NVIDIA GPU (Tesla T4, RTX 3060 trở lên) để training.
 
-RAM: Tối thiểu 16GB.
+* **GPU:** Khuyến nghị sử dụng NVIDIA GPU (Tesla T4, RTX 3060 trở lên) để training.
+* **RAM:** Tối thiểu 16GB.
+* **Môi trường:** Code đã được tối ưu và kiểm thử tốt nhất trên nền tảng Kaggle / Google Colab.
 
-Môi trường: Code đã được tối ưu và kiểm thử tốt nhất trên môi trường Kaggle/Google Colab.
+> **⚠️ LƯU Ý QUAN TRỌNG VỀ DỮ LIỆU (DATASET):**
+> Do quy định về BẢO MẬT DỮ LIỆU CỦA CUỘC THI, nhóm KHÔNG nộp kèm tập dataset gốc (video/ảnh) trong gói source code này.
 
-## ⚠️ LƯU Ý QUAN TRỌNG VỀ DỮ LIỆU (DATASET):
-Do quy định về BẢO MẬT DỮ LIỆU CỦA CUỘC THI, nhóm KHÔNG nộp kèm tập dataset gốc (video/ảnh) trong gói source code này.
+---
 
 ## 🚀 Quy trình thực thi (Pipeline)
-Để tái hiện kết quả, vui lòng chạy các file trong thư mục source/ theo thứ tự sau:
 
-[BƯỚC 1] Chuẩn bị dữ liệu
-01_data_gen_yolo.ipynb: Sinh dữ liệu tổng hợp (synthetic) để tăng cường tập train.
+Để tái hiện kết quả, vui lòng chạy các file Jupyter Notebook theo thứ tự sau:
 
-02_data_merge_yolo.ipynb: Gộp dữ liệu gốc và dữ liệu tổng hợp thành định dạng chuẩn YOLO.
+### [BƯỚC 1] Chuẩn bị dữ liệu
 
-[BƯỚC 2] Huấn luyện model nhận diện
-03_train_yolo.ipynb: Fine-tune YOLO-Drone trên tập dữ liệu đã merge. Thay đổi hoặc load dữ liệu từ file JSON có sẵn.
+1. `01_data_gen_yolo.ipynb`: Sinh dữ liệu tổng hợp (synthetic) để tăng cường tập train.
+2. `02_data_merge_yolo.ipynb`: Gộp dữ liệu gốc và dữ liệu tổng hợp thành định dạng chuẩn cho YOLO.
 
-Output quan trọng: file trọng số best.pt.
+### [BƯỚC 2] Huấn luyện model nhận diện
 
-Mục đích: So sánh mAP và tốc độ suy luận với YOLO.
+3. `03_train_yolo.ipynb`: Fine-tune YOLO-Drone trên tập dữ liệu đã merge. Có thể thay đổi hoặc load dữ liệu từ file JSON có sẵn.
+* **Output quan trọng:** file trọng số `best.pt`.
+* **Mục đích:** Đánh giá mAP và tốc độ suy luận của mô hình YOLO.
 
-[BƯỚC 3] Huấn luyện model so khớp (Matching)
-04_data_prep_matching.ipynb: Sử dụng model YOLO (từ bước 3) để cắt vật thể, tạo bộ dữ liệu Triplet (Anchor-Positive-Negative).
 
-05_train_siamese.ipynb: Train mạng Siamese Network (Backbone MobileNetV3).
 
-Output quan trọng: file trọng số siamese_mobilenet_best.pth.
+### [BƯỚC 3] Huấn luyện model so khớp (Matching)
 
-[BƯỚC 4] Suy luận tổng hợp
-06_inference_main.ipynb: Kết hợp Detection + Re-Identification để chạy trên tập Test. Xuất file kết quả JSON/CSV.
+4. `04_data_prep_matching.ipynb`: Sử dụng model YOLO (từ bước 3) để cắt vật thể, tạo bộ dữ liệu Triplet (Anchor - Positive - Negative).
+5. `05_train_siamese.ipynb`: Train mạng Siamese Network (sử dụng Backbone MobileNetV3).
+* **Output quan trọng:** file trọng số `siamese_mobilenet_best.pth`.
 
-🌐 Hướng dẫn chạy Demo App
-Nhóm đã xây dựng một giao diện Web App (Streamlit) để demo nhanh kết quả.
 
-Bước 1: Chuẩn bị Model
-Đảm bảo 2 file trọng số sau đây đang nằm trong thư mục source/demo:
 
-yolo_drone_best.pt (Lấy từ output folder sau khi chạy file 03)
+### [BƯỚC 4] Suy luận tổng hợp
 
-siamese_mobilenet_best.pth (Lấy từ output folder sau khi chạy file 05)
+6. `06_inference_main.ipynb`: Kết hợp Detection + Re-Identification để chạy trên tập Test. Xuất file kết quả cuối cùng dưới dạng JSON/CSV.
 
-Bước 2: Chạy lệnh
-Mở terminal tại thư mục source/demo và chạy các lệnh sau:
+---
 
-Bash
+## 🌐 Hướng dẫn chạy Demo App (Streamlit)
+
+Nhóm đã xây dựng một giao diện Web App để demo nhanh kết quả trực quan.
+
+### Bước 1: Chuẩn bị Model
+
+Đảm bảo 2 file trọng số sau đây đang nằm trong thư mục `demo/`:
+
+* `yolo_drone_best.pt` *(Lấy từ output folder sau khi chạy xong file 03)*
+* `siamese_mobilenet_best.pth` *(Lấy từ output folder sau khi chạy xong file 05)*
+
+### Bước 2: Chạy lệnh khởi động
+
+Mở terminal, di chuyển vào thư mục `demo/` và chạy các lệnh sau:
+
+```bash
 pip install -r requirements.txt
 streamlit run 07_demo_app.py
-Bước 3: Sử dụng
-Truy cập link hiển thị trên Terminal (thường là http://localhost:8501).
 
-Upload 1 Video Drone + 1 đến 3 Ảnh đối tượng cần tìm (có thể lấy từ thư mục source/demo/data_test_demo).
+```
 
-Nhấn "Chạy Demo" và xem kết quả trực quan.
+### Bước 3: Sử dụng Demo
 
-Trân trọng cảm ơn Quý Thầy/Cô đã xem xét đồ án của nhóm!
+* Truy cập vào link hiển thị trên Terminal (thường là `http://localhost:8501`).
+* Upload **1 Video Drone** và **1 đến 3 Ảnh đối tượng** cần tìm (có thể lấy dữ liệu mẫu từ thư mục `demo/data_test_demo`).
+* Nhấn nút **"Chạy Demo"** và xem kết quả theo dõi đối tượng trên video.
+
+---
+
+*Trân trọng cảm ơn Quý Thầy/Cô đã xem xét đồ án của nhóm!*
+
+```
+
+Làm xong bước này, bạn gõ 3 lệnh Git để đẩy lên là dự án của bạn trên GitHub sẽ cực kỳ chuẩn chỉnh! Có bước nào bạn thấy vướng mắc nữa không?
+
+```
