@@ -1,0 +1,81 @@
+{
+  "status": "completed_read_only_diagnostic",
+  "source_directory": "user-provided-artifact/motion_distribution_diagnostics_v1",
+  "production_control": {
+    "mean_st_iou": 0.740013088928747,
+    "detected_frames": 8890,
+    "exact_prediction_parity": true,
+    "per_video_metric_exact_parity": true
+  },
+  "coverage": {
+    "adjacent_gt_pair_count": 9449,
+    "adjacent_gt_pair_coverage_exact": true,
+    "selected_top1_pair_coverage": 0.9851836173140015,
+    "oracle_candidate_pair_coverage": 0.9555508519420044,
+    "production_final_pair_coverage": 0.8923695629167108
+  },
+  "global_motion": {
+    "gt_center_speed_percentiles": {
+      "p50": 0.08213930116065649,
+      "p90": 0.2625551723086116,
+      "p95": 0.3432340556570343,
+      "p99": 0.767263101990912
+    },
+    "gt_exceeds_gate_0_4_rate": 0.03280770451899672,
+    "gt_exceeds_gate_0_6_rate": 0.012382262673298762,
+    "good_top1_pair_exceeds_gate_0_4_rate": 0.026215936529837874,
+    "good_top1_pair_exceeds_gate_0_6_rate": 0.006553984132459468,
+    "selected_top1_good_endpoint_pair_rate": 0.9342571704801804,
+    "oracle_good_endpoint_pair_rate": 0.9830546018385203
+  },
+  "size_findings": {
+    "tiny_lt_8": {
+      "pair_count": 161,
+      "gt_exceeds_gate_0_4_rate": 0.06832298136645963,
+      "selected_top1_good_pair_rate": 0.8944099378881988,
+      "production_final_pair_coverage": 0.6770186335403726
+    },
+    "very_small_8_16": {
+      "pair_count": 4441,
+      "gt_exceeds_gate_0_4_rate": 0.05224048637694213,
+      "good_top1_pair_exceeds_gate_0_4_rate": 0.05442522889114954,
+      "selected_top1_good_pair_rate": 0.9078734703301777,
+      "production_final_pair_coverage": 0.8324701643773925
+    },
+    "medium_32_64": {
+      "pair_count": 2088,
+      "gt_center_speed_p95": 0.15840907834460088,
+      "gt_exceeds_gate_0_4_rate": 0.0023946360153256703,
+      "production_final_pair_coverage": 0.9770114942528736
+    }
+  },
+  "video_findings": {
+    "CardboardBox_0": {
+      "adjacent_pairs": 1260,
+      "gt_center_speed_p90": 0.38638862299745286,
+      "gt_center_speed_p95": 0.4427760721581781,
+      "gt_exceeds_gate_0_4_rate": 0.0880952380952381,
+      "good_top1_pair_exceeds_gate_0_4_rate": 0.08620689655172414,
+      "good_top1_pair_exceeds_gate_0_6_rate": 0.0,
+      "selected_top1_good_pair_rate": 0.8305489260143198,
+      "oracle_good_pair_rate": 0.8830128205128205,
+      "production_final_pair_coverage": 0.7698412698412699
+    },
+    "LifeJacket_0": {
+      "adjacent_pairs": 2800,
+      "gt_exceeds_gate_0_4_rate": 0.0425,
+      "gt_exceeds_gate_0_6_rate": 0.0175,
+      "good_top1_pair_exceeds_gate_0_6_rate": 0.018262987012987012
+    }
+  },
+  "outlier_warning": {
+    "gt_transitions_center_speed_gt_2_count": 62,
+    "examples": [
+      "BlackBox_1 frame 5458->5459: 1023.2 px",
+      "LifeJacket_1 multiple transitions in frames 826-927: approximately 765-795 px"
+    ],
+    "user_clarification": "Confirmed real camera transition/pan away from the target; frame indexing remains absolute and zero-based.",
+    "temporal_semantics": "Treat these transitions as temporal-state reset boundaries. Never interpolate or link tracklets across them."
+  },
+  "decision": "Do not widen Candidate Tracklet Graph V1. Anchor-Preserving Residual Recovery V2 must keep production detections immutable and reset instead of bridging when the endpoint motion indicates the confirmed camera discontinuity."
+}

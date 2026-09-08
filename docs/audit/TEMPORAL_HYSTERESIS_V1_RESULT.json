@@ -1,0 +1,60 @@
+{
+  "status": "rejected_not_promoted",
+  "source_directory": "user-provided-artifact/temporal_hysteresis_v1_identity_cv",
+  "production_control": {
+    "mean_st_iou": 0.740013088928747,
+    "detected_frames": 8890
+  },
+  "cross_validation": {
+    "weak_equals_strong_exact_prediction_parity": true,
+    "recommended_config": {
+      "weak_threshold": 0.54,
+      "max_anchor_span": 8,
+      "strong_threshold": 0.54,
+      "max_center_speed": 0.4
+    },
+    "recommendation_votes": 1,
+    "mean_cv_delta": -0.019644184629346917,
+    "improved_identity_count": 0,
+    "worst_identity_delta": -0.036931716352201605,
+    "promotion_passed": false
+  },
+  "heldout_folds": {
+    "BlackBox": {
+      "selected_weak_threshold": 0.5,
+      "selected_max_anchor_span": 32,
+      "heldout_delta": -0.022000837535839368
+    },
+    "CardboardBox": {
+      "selected_weak_threshold": 0.54,
+      "selected_max_anchor_span": 8,
+      "heldout_delta": 0.0
+    },
+    "LifeJacket": {
+      "selected_weak_threshold": 0.48,
+      "selected_max_anchor_span": 32,
+      "heldout_delta": -0.036931716352201605
+    }
+  },
+  "enabled_grid_diagnostics": {
+    "mean_delta_range": [
+      -0.011822895067176598,
+      -0.003014409379145211
+    ],
+    "final_frame_delta_range": [
+      336,
+      672
+    ],
+    "rescued_frame_range": [
+      250,
+      795
+    ],
+    "cardboardbox_0_delta_range": [
+      0.046110982948625145,
+      0.09701916064043903
+    ],
+    "blackbox_1_delta_minimum": -0.08296003977748612,
+    "lifejacket_1_delta_minimum": -0.05926334818732648
+  },
+  "decision": "Keep hysteresis disabled and retain production 0.740013088928747. Fixed weak-threshold recovery is identity-specific and does not generalize under leave-one-identity-out evaluation."
+}

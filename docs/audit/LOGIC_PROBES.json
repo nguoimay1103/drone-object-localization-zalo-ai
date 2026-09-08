@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "scope": "Small deterministic probes using selected functions/methods extracted with AST from the actual notebooks. No notebooks executed top-to-bottom, no models loaded, no real dataset frequency measured.",
+  "results": {
+    "negative_crop_contains_entire_gt": {
+      "gt": [
+        90,
+        90,
+        100,
+        100
+      ],
+      "crop": [
+        0,
+        0,
+        200,
+        200
+      ],
+      "iou": 0.0025,
+      "accepted_by_hard_iou_gate": true,
+      "accepted_by_background_iou_gate": true,
+      "gt_coverage_fraction": 1
+    },
+    "same_identity_negative_reachable": {
+      "anchor": "Backpack_0_ref.jpg",
+      "positive": "Backpack_0_pos.jpg",
+      "negative": "Backpack_1_pos.jpg",
+      "forced_branch": "other video, random=0.9",
+      "identity_equivalence": "user confirmed same physical object",
+      "actual_dataset_frequency": "not measured"
+    },
+    "metric_cases": {
+      "perfect": 1,
+      "one_of_two_gt_frames_missing": 0.5,
+      "one_extra_prediction_frame": 0.5,
+      "both_empty": 0
+    },
+    "temporal_gap_without_motion_gate": {
+      "endpoints": [
+        0,
+        6
+      ],
+      "endpoint_displacement_pixels": 1000,
+      "output_frame_count": 7,
+      "midpoint_bbox": {
+        "frame": 3,
+        "x1": 500,
+        "y1": 500,
+        "x2": 510,
+        "y2": 510
+      },
+      "six_missing_frames_case": "not filled; isolated endpoints then removed"
+    }
+  }
+}

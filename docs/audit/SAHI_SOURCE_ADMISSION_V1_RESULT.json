@@ -1,0 +1,60 @@
+{
+  "experiment": "sahi_source_admission_v1",
+  "decision": "reject_and_keep_legacy_production",
+  "production_st_iou": 0.740013088928747,
+  "policies": {
+    "legacy_only": {
+      "st_iou": 0.740013088928747,
+      "detected_frames": 8890,
+      "no_candidate_gt_frames": 118
+    },
+    "missing_legacy_only": {
+      "st_iou": 0.740013088928747,
+      "delta": 0.0,
+      "detected_frames": 8890,
+      "tile_admitted_count": 3776,
+      "tile_admitted_frames": 2658,
+      "accepted_tile_frames": 14,
+      "no_candidate_gt_frames": 89
+    },
+    "weak_legacy_rescue": {
+      "st_iou": 0.7418415823050643,
+      "delta": 0.0018284933763172972,
+      "detected_frames": 9417,
+      "accepted_tile_frames": 636,
+      "oracle_recall_iou_05": 0.952656496580747,
+      "sub16_oracle_recall_iou_05": 0.9218241042345277,
+      "per_video_delta": {
+        "BlackBox_0": 0.007613764987895122,
+        "BlackBox_1": -0.0052345210362572114,
+        "CardboardBox_0": 0.06355689568476652,
+        "CardboardBox_1": 0.0023144801435371898,
+        "LifeJacket_0": -0.01056637131755045,
+        "LifeJacket_1": -0.046713288204487946
+      },
+      "identity_delta": {
+        "BlackBox": 0.0011896219758189552,
+        "CardboardBox": 0.0329356879141518,
+        "LifeJacket": -0.02863982976101931
+      }
+    }
+  },
+  "identity_held_out_cv": {
+    "mean_delta": -0.009150069261733451,
+    "improved_identities": 1,
+    "identity_count": 3,
+    "worst_delta": -0.02863982976101931,
+    "promotion_passed": false,
+    "selected_policy_counts": {
+      "legacy_only": 1,
+      "missing_legacy_only": 0,
+      "weak_legacy_rescue": 2
+    }
+  },
+  "interpretation": [
+    "Missing-only candidates improve the oracle but do not form accepted temporal output.",
+    "Weak rescue gain is concentrated in CardboardBox_0 and does not transfer to LifeJacket.",
+    "LifeJacket_1 already has oracle recall 1.0, so extra tile competition mainly adds selection and temporal false positives."
+  ],
+  "next_step": "Train and evaluate a global stride-4 P2 detector variant with locked Siamese, fusion, matching threshold, and temporal post-processing. Do not tune additional tile thresholds on the six public videos."
+}

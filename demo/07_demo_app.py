@@ -24,10 +24,16 @@ YOLO_MODEL_PATH = "yolo_drone_best.pt"
 SIAMESE_MODEL_PATH = "siamese_mobilenet_best.pth"
 
 CONFIDENCE_DEFAULT = 0.05
-MATCHING_THRESHOLD_DEFAULT = 0.5
+MATCHING_THRESHOLD_DEFAULT = 0.45  # [SPRINT 1] aligned with NB06
 IMGSZ = 640
-WEIGHT_YOLO = 0.7
+# [SPRINT 1] Unified weights – matches 06_inference_main.ipynb
+WEIGHT_YOLO    = 0.4
 WEIGHT_SIAMESE = 0.3
+WEIGHT_COLOR   = 0.3
+
+# [SPRINT 1] Multi-scale ref embedding (same as NB06)
+USE_MULTISCALE_REF = True
+REF_SCALES = [224, 112, 56]
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -94,16 +100,27 @@ def encode_image_for_siamese(pil_img: Image.Image) -> torch.Tensor:
 
 def build_ref_embedding(ref_imgs):
     """
-    ref_imgs: list các ảnh numpy (RGB) hoặc None
-    Trả về embedding trung bình (1, 128) hoặc None nếu không có ảnh nào.
+    [SPRINT 1] Multi-scale reference embedding.
+    ref_imgs: list cac anh numpy (RGB) hoac None
+    Encode moi anh o 3 scales [224, 112, 56] roi average.
+    Scale nho simulate DroneDegradation → bridge domain gap.
     """
     embs = []
+    scales_to_use = REF_SCALES if USE_MULTISCALE_REF else [224]
+    transform_224 = siamese_transform  # already 224
+
     for img in ref_imgs:
         if img is None:
             continue
         pil = Image.fromarray(img)
-        emb = encode_image_for_siamese(pil)
-        embs.append(emb)
+        for scale in scales_to_use:
+            if scale != 224:
+                small = pil.resize((scale, scale), Image.BILINEAR)
+                pil_input = small.resize((224, 224), Image.NEAREST)
+            else:
+                pil_input = pil
+            emb = encode_image_for_siamese(pil_input)
+            embs.append(emb)
 
     if len(embs) == 0:
         return None
@@ -114,14 +131,40 @@ def build_ref_embedding(ref_imgs):
     return mean_emb
 
 
+def compute_hs_histogram(img_bgr):
+    """Tinh Histogram 2D Hue-Saturation cho color matching."""
+    hsv = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2HSV)
+    mask = cv2.inRange(hsv, np.array([0, 30, 30]), np.array([180, 255, 255]))
+    hist = cv2.calcHist([hsv], [0, 1], mask, [30, 32], [0, 180, 0, 256])
+    cv2.normalize(hist, hist, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX)
+    return hist
+
+
+def build_ref_histogram(ref_imgs):
+    """[SPRINT 1] Tinh histogram mau trung binh cua reference images."""
+    agg_hist = None
+    for img_rgb in ref_imgs:
+        if img_rgb is None:
+            continue
+        img_bgr = cv2.cvtColor(img_rgb, cv2.COLOR_RGB2BGR)
+        hist = compute_hs_histogram(img_bgr)
+        agg_hist = hist if agg_hist is None else agg_hist + hist
+    if agg_hist is not None:
+        cv2.normalize(agg_hist, agg_hist, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX)
+    return agg_hist
+
+
 def select_best_box_with_siamese(frame_rgb: np.ndarray,
+                                 frame_bgr: np.ndarray,
                                  boxes_xyxy: np.ndarray,
                                  scores: np.ndarray,
                                  ref_emb: torch.Tensor,
+                                 ref_hist,
                                  match_thresh: float):
     """
-    final_score = 0.7 * yolo_conf + 0.3 * siam_score
-    siam_score = 1 - dist/2 (dist = L2(ref_emb, cand_emb))
+    [SPRINT 1] Updated scoring:
+      final_score = (YOLO*yolo_conf + Siam*siam_score + Color*color_score) / total_w
+      Aligned with NB06: YOLO=0.4, Siamese=0.3, Color=0.3
     """
     h_img, w_img = frame_rgb.shape[:2]
     pil_frame = Image.fromarray(frame_rgb)
@@ -133,7 +176,8 @@ def select_best_box_with_siamese(frame_rgb: np.ndarray,
     if ref_emb is None or len(boxes_xyxy) == 0:
         return None, []
 
-    crops = []
+    crops_pil = []
+    crops_bgr = []
     valid_idx = []
     for i, box in enumerate(boxes_xyxy):
         x1, y1, x2, y2 = map(int, box)
@@ -141,31 +185,48 @@ def select_best_box_with_siamese(frame_rgb: np.ndarray,
         x2 = min(w_img, x2); y2 = min(h_img, y2)
         if x2 <= x1 + 5 or y2 <= y1 + 5:
             continue
-        crop = pil_frame.crop((x1, y1, x2, y2))
-        crops.append(siamese_transform(crop))
+        crops_pil.append(siamese_transform(pil_frame.crop((x1, y1, x2, y2))))
+        crops_bgr.append(frame_bgr[y1:y2, x1:x2])
         valid_idx.append(i)
 
-    if len(crops) == 0:
+    if len(crops_pil) == 0:
         return None, []
 
-    batch = torch.stack(crops).to(DEVICE)
+    # Siamese scores
+    batch = torch.stack(crops_pil).to(DEVICE)
     with torch.no_grad():
         cand_embs = siamese_model(batch)
         dists = torch.cdist(ref_emb, cand_embs)[0].cpu().numpy()
+    siam_scores = np.maximum(0, 1.0 - dists / 2.0)
 
-    for k, dist in enumerate(dists):
-        idx_orig = valid_idx[k]
+    # Color scores
+    color_scores = np.zeros(len(crops_pil))
+    if ref_hist is not None:
+        for k, crop_bgr in enumerate(crops_bgr):
+            if crop_bgr.size > 0:
+                crop_hist = compute_hs_histogram(crop_bgr)
+                color_scores[k] = max(0.0, cv2.compareHist(ref_hist, crop_hist, cv2.HISTCMP_CORREL))
+
+    # Fuse
+    w_y = WEIGHT_YOLO
+    w_s = WEIGHT_SIAMESE
+    w_c = WEIGHT_COLOR if ref_hist is not None else 0.0
+    total_w = w_y + w_s + w_c
+
+    for k, idx_orig in enumerate(valid_idx):
         yolo_conf = float(scores[idx_orig])
-        siam_score = max(0.0, 1.0 - (dist / 2.0))
-        final_score = WEIGHT_YOLO * yolo_conf + WEIGHT_SIAMESE * siam_score
+        siam_score = float(siam_scores[k])
+        color_score = float(color_scores[k])
+        final_score = (w_y * yolo_conf + w_s * siam_score + w_c * color_score) / total_w
 
         box_xyxy = boxes_xyxy[idx_orig].tolist()
-        candidates.append(
-            {"bbox": box_xyxy,
-             "yolo_conf": yolo_conf,
-             "siam_score": siam_score,
-             "final_score": final_score}
-        )
+        candidates.append({
+            "bbox": box_xyxy,
+            "yolo_conf": yolo_conf,
+            "siam_score": siam_score,
+            "color_score": color_score,
+            "final_score": final_score
+        })
 
         if final_score > best_final:
             best_final = final_score
@@ -185,11 +246,14 @@ def process_video_with_refs(video_path, ref_imgs,
                             conf_thres, match_thres):
     ref_emb = build_ref_embedding(ref_imgs)
     if ref_emb is None:
-        return None, "Vui lòng upload ít nhất 1 ảnh tham chiếu."
+        return None, "Vui long upload it nhat 1 anh tham chieu."
+
+    # [SPRINT 1] Build color histogram from reference images
+    ref_hist = build_ref_histogram(ref_imgs)
 
     cap = cv2.VideoCapture(video_path)
     if not cap.isOpened():
-        return None, "Không mở được video."
+        return None, "Khong mo duoc video."
 
     fps = cap.get(cv2.CAP_PROP_FPS) or 25
     w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -229,8 +293,9 @@ def process_video_with_refs(video_path, ref_imgs,
             boxes = np.zeros((0, 4))
             scores = np.zeros((0,))
 
+        # [SPRINT 1] Pass frame_bgr and ref_hist for color scoring
         best_box, candidates = select_best_box_with_siamese(
-            frame_rgb, boxes, scores, ref_emb, match_thres
+            frame_rgb, frame_bgr, boxes, scores, ref_emb, ref_hist, match_thres
         )
 
         out_frame = frame_bgr.copy()

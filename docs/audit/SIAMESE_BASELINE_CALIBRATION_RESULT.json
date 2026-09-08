@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "experiment": "siamese_baseline_calibration_coarse",
+  "source": "Kaggle log supplied by the user; full summary/CSV were not supplied",
+  "precision": "Values are rounded as printed in the log",
+  "best": {
+    "weights": {"yolo": 0.35, "siamese": 0.45, "color": 0.2},
+    "matching_threshold": 0.48,
+    "mean_st_iou": 0.707417,
+    "detected_frames": 9489,
+    "per_video": {
+      "BlackBox_0": 0.6840,
+      "BlackBox_1": 0.7669,
+      "CardboardBox_0": 0.6193,
+      "CardboardBox_1": 0.8163,
+      "LifeJacket_0": 0.7222,
+      "LifeJacket_1": 0.6358
+    }
+  },
+  "comparison": {
+    "uncalibrated_baseline_mean_st_iou": 0.700454,
+    "delta_vs_uncalibrated_baseline": 0.006963,
+    "identity_v1_calibrated_mean_st_iou": 0.7202741100547837,
+    "identity_v1_advantage": 0.0128571100547837
+  },
+  "decision": {
+    "winner_of_equal_coarse_search": "identity_v1",
+    "identity_v1_is_current_best_offline_checkpoint": true,
+    "next_experiment": "Fine identity-v1 grid with the same candidate cache."
+  }
+}

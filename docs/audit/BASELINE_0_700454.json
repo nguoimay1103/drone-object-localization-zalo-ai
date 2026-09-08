@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-08-28",
+  "purpose": "Audit snapshot only; not an executable training or inference configuration.",
+  "original_files_reference_note": "Hashes below describe the original baseline versions. NB04 was later edited for safe mining, NB05 for identity_v1 and NB06 for calibration; their exact originals are preserved under baselines/.",
+  "baseline_notebook_copies": {
+    "04-data-prep-matching.ipynb": "baselines/04-data-prep-matching-baseline.ipynb",
+    "05-train-siamese.ipynb": "baselines/05-train-siamese-baseline.ipynb",
+    "06-inference-main.ipynb": "baselines/06-inference-main-baseline.ipynb"
+  },
+  "baseline": {
+    "metric_name_in_notebook": "mean ST-IoU",
+    "recorded_score": 0.700454,
+    "evidence": "Stored output of 06-inference-main.ipynb, not rerun during this audit.",
+    "official_competition_score": false,
+    "gt_origin": "Public-test labels manually annotated by the user; official public-test GT unavailable.",
+    "annotation_coverage": "User confirms every frame where target appears is annotated.",
+    "frame_index_semantics": "Absolute position in original video, first frame = 0; explicitly confirmed by the user on 2026-08-29.",
+    "video_count": 6,
+    "per_video_scores_rounded_from_log": {
+      "BlackBox_0": 0.6014,
+      "BlackBox_1": 0.7656,
+      "CardboardBox_0": 0.6109,
+      "CardboardBox_1": 0.7918,
+      "LifeJacket_0": 0.747,
+      "LifeJacket_1": 0.686
+    },
+    "ablation_status": "All changes enabled together; individual contributions not established.",
+    "end_to_end_reproduced_in_this_audit": false
+  },
+  "user_confirmations": {
+    "physical_identity": "Pairs such as Backpack_0 and Backpack_1 show the same physical object.",
+    "siamese_retrained_sampling_rate": 5,
+    "confirmed_on": "2026-08-29",
+    "target_environment": "Kaggle, two NVIDIA T4 GPUs",
+    "path_configuration": "User will set data/checkpoint paths through YAML or CLI",
+    "optimization_priority": "Maximize offline localization quality first",
+    "fps_target": 25,
+    "fps_constraint_interpretation": "Provisionally treated as a secondary goal; user has not yet confirmed whether it is a hard constraint.",
+    "checkpoint_alias_equivalence": "User confirms local demo weights correspond to the NB06 weights. Remote files were not available for independent hash comparison."
+  },
+  "checkpoints": {
+    "detector": {
+      "local": "demo/yolo_drone_best.pt",
+      "notebook_basename": "yolo_drone_700.pt",
+      "sha256": "83d5201ba4669ca75bd340a933aaf0d832f45995972af39d30180733d8924116"
+    },
+    "matcher": {
+      "local": "demo/siamese_mobilenet_best.pth",
+      "notebook_basename": "siamese_mobilenet_best_1.pth",
+      "sha256": "8babb894124d3da0e4e67d871414d9b56ca84be15c80318090fab94fcdee3ea6"
+    }
+  },
+  "inference_explicit_settings": {
+    "CONFIDENCE_THRESHOLD": 0.05,
+    "MATCHING_THRESHOLD": 0.45,
+    "YOLO_ONLY_THRESHOLD": 0.2,
+    "WEIGHT_YOLO": 0.4,
+    "WEIGHT_SIAMESE": 0.3,
+    "WEIGHT_COLOR": 0.3,
+    "USE_TTA": true,
+    "USE_MULTISCALE_REF": true,
+    "REF_SCALES": [
+      224,
+      112,
+      56
+    ],
+    "TEMPORAL_MAX_GAP": 5,
+    "TEMPORAL_MIN_SEG": 3,
+    "imgsz": "Not explicitly set by NB06 predict call; resolve actual library/checkpoint runtime value before freezing executable config.",
+    "other_predict_args": {
+      "stream": true,
+      "verbose": false
+    },
+    "coordinate_handling": "Integer truncation for crop extraction; int(round()) for final output boxes.",
+    "crop_filter": "Reject cropped width <= 5 or height <= 5.",
+    "matching": "L2-normalized 128D embedding; max(0, 1 - Euclidean distance / 2); HS histogram correlation clipped below at 0.",
+    "optional_components": "Missing reference embeddings/histogram zero out corresponding weight and renormalize; threshold depends on reference embedding availability."
+  },
+  "training_evidence": {
+    "detector": {
+      "source_epochs": 70,
+      "source_imgsz": 640,
+      "source_batch": 16,
+      "source_lr0": 0.003,
+      "source_lrf": 0.01,
+      "source_amp": true,
+      "source_mixup": 0.05,
+      "source_degrees": 5,
+      "source_shear": 2,
+      "recorded_optimizer": "SGD",
+      "recorded_optimizer_lr": 0.01,
+      "recorded_momentum": 0.9,
+      "reason": "Stored log: optimizer=auto ignored lr0=0.003 and momentum=0.937.",
+      "checkpoint_training_lineage": "User confirms inference checkpoint mapping; this log was not independently tied to checkpoint metadata."
+    },
+    "matcher": {
+      "backbone": "MobileNetV3-Small",
+      "projection": [
+        576,
+        256,
+        128
+      ],
+      "loss": "TripletMarginLoss",
+      "margin": 0.5,
+      "p": 2,
+      "epochs": 15,
+      "batch": 128,
+      "lr": 0.0001,
+      "optimizer": "AdamW",
+      "weight_decay": 0.0001,
+      "scheduler": "CosineAnnealingLR",
+      "checkpoint_selection": "Lowest validation triplet loss"
+    }
+  },
+  "runtime": {
+    "notebook_03_06_ultralytics_pin": "8.3.221",
+    "notebook_04_install": "pip install -U ultralytics; actual mining version not captured",
+    "demo_requirements": "Unpinned",
+    "original_full_environment_lock": null,
+    "audit_model_inference_executed": false,
+    "audit_runtime_missing_modules": [
+      "torch",
+      "ultralytics",
+      "cv2"
+    ],
+    "data_present_in_workspace": false
+  },
+  "files": {
+    ".gitignore": {
+      "bytes": 56,
+      "sha256": "26cffe0e0ac80a27cfaddd4fb8b1e850db70bb9a636257627e0e565c6990c8c1"
+    },
+    "01_data_gen_yolo.ipynb": {
+      "bytes": 48141,
+      "sha256": "c6b5dc192dd53680f077ed133dc18b6182f5470c2aa176eb815e11bb395aa71d"
+    },
+    "02_data_merge_yolo.ipynb": {
+      "bytes": 17724,
+      "sha256": "a7f5b4c76349d6fccce8b7528d725dd46ebd3a4e9e30631472957653bbb301c3"
+    },
+    "03_train_yolo.ipynb": {
+      "bytes": 76386,
+      "sha256": "d499eeda0f2a03a7360958a7217f21374738b7f3cba807b41cb8aa117ba0de07"
+    },
+    "04-data-prep-matching.ipynb": {
+      "bytes": 20808,
+      "sha256": "958e3a4fd7b304dfd5563e697d04abfc0edb03e71a2104582513c01c58b9f61a"
+    },
+    "05-train-siamese.ipynb": {
+      "bytes": 146846,
+      "sha256": "b3fd43fe88e334cf7c587ebeb5a7765d9fed4c8b666ee8667cc54e41dd272f75"
+    },
+    "06-inference-main.ipynb": {
+      "bytes": 3491568,
+      "sha256": "68cfae281708a8962d785f16c3b5a8b0a0dd58a105a714012689c39907bedae1"
+    },
+    "demo/07_demo_app.py": {
+      "bytes": 12759,
+      "sha256": "1decc1a399f5c0736fc9bff50b7c6499667a1472c7b4397986f0349c254040d4"
+    },
+    "demo/requirements.txt": {
+      "bytes": 72,
+      "sha256": "f7eec1258573f08f3455d979e6c837c55421b415bc76f9694975d2176bc38d51"
+    },
+    "demo/siamese_mobilenet_best.pth": {
+      "bytes": 4573395,
+      "sha256": "8babb894124d3da0e4e67d871414d9b56ca84be15c80318090fab94fcdee3ea6"
+    },
+    "demo/yolo_drone_best.pt": {
+      "bytes": 5447187,
+      "sha256": "83d5201ba4669ca75bd340a933aaf0d832f45995972af39d30180733d8924116"
+    },
+    "README.md": {
+      "bytes": 4064,
+      "sha256": "d5fc74869b0a25c6e1705a045353b423c3ab7fd555f329284f5e74bfa037a74e"
+    },
+    "readme.txt": {
+      "bytes": 5441,
+      "sha256": "d404de1cee8ffd0572777b74c7c8393f0b59fa084a35e25d49affa39b9941b6b"
+    },
+    "Report.docx": {
+      "bytes": 4241710,
+      "sha256": "1f817143eddf30d1286ffb54a1404f24a391a872848c4a7b6b9048b0643acace"
+    }
+  }
+}

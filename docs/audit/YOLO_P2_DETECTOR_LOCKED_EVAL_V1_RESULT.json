@@ -1,0 +1,65 @@
+{
+  "experiment": "yolo_p2_detector_locked_eval_v1",
+  "status": "rejected_not_promoted",
+  "source": "user-provided-artifact/yolo_p2_detector_locked_eval_v1",
+  "evaluation_policy": {
+    "per_object_tuning": false,
+    "matching_and_temporal_locked": true,
+    "imgsz": 640,
+    "minimum_fps": 25.0
+  },
+  "variants": {
+    "production": {
+      "checkpoint_sha256": "eb4b471a364b708eb417cb3b0f3fb6a86933e9e5f7dee8fb9f4d250fe274baa3",
+      "mean_st_iou": 0.740013088928747,
+      "oracle_recall_iou_05": 0.948132561809574,
+      "sub16_oracle_recall_iou_05": 0.9172638436482085,
+      "detected_frames": 8890
+    },
+    "p3_control": {
+      "checkpoint_sha256": "d317a81a494113ddc789df116a7adb9ef90be362aa4ef7a63a06242f47843234",
+      "mean_st_iou": 0.6866363856195091,
+      "delta_st_iou_vs_production": -0.05337670330923783,
+      "oracle_recall_iou_05": 0.9417148869016307,
+      "sub16_oracle_recall_iou_05": 0.9346362649294245,
+      "detected_frames": 8881,
+      "aggregate_fps": 30.590384219618443,
+      "promotion_passed": false
+    },
+    "p2_stride4": {
+      "checkpoint_sha256": "8f8279f178dc7ec1f57a8b19a28ff7b470a4652398face895a00deef67d60e16",
+      "mean_st_iou": 0.6536326558641348,
+      "delta_st_iou_vs_production": -0.08638043306461218,
+      "oracle_recall_iou_05": 0.9344555497106786,
+      "sub16_oracle_recall_iou_05": 0.9172638436482085,
+      "detected_frames": 8407,
+      "aggregate_fps": 26.867858469204197,
+      "promotion_passed": false
+    }
+  },
+  "p2_vs_paired_p3": {
+    "mean_st_iou_delta": -0.033003729755374356,
+    "sub16_recall_iou_05_delta": -0.017372421281216077
+  },
+  "largest_video_regressions": {
+    "p3_control": {
+      "video_id": "BlackBox_1",
+      "delta_st_iou_vs_production": -0.27977658233719993,
+      "no_candidate_frames_production": 13,
+      "no_candidate_frames_variant": 91
+    },
+    "p2_stride4": {
+      "video_id": "CardboardBox_0",
+      "delta_st_iou_vs_production": -0.31060198261279187,
+      "oracle_recall_iou_05_production": 0.9221085759244689,
+      "oracle_recall_iou_05_variant": 0.898505114083399
+    }
+  },
+  "decision": "Retain production detector and keep the P2 locked-evaluation runner disabled by default.",
+  "interpretation": {
+    "observed": "P3 and P2 both satisfy the 25 FPS gate but fail the pre-registered quality gates. P2 provides no sub-16 recall gain over production.",
+    "inference": "The large CardboardBox_0 final-score loss relative to its smaller oracle-recall loss suggests a checkpoint-specific candidate ranking or score-transfer problem in addition to detector localization loss. This requires diagnostics, not per-object calibration."
+  },
+  "score_calibration_follow_up": "docs/audit/CHECKPOINT_SCORE_CALIBRATION_V1_RESULT.json",
+  "next_step": "Checkpoint-specific score calibration was rejected. Reproduce the original production P3 training trajectory before attempting another detector architecture."
+}

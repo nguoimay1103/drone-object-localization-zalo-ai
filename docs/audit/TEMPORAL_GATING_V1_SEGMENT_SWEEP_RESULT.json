@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "source": "Kaggle temporal segment-sweep artifacts supplied by the user",
+  "experiment": "temporal_gating_v1_segment_sweep",
+  "cache_signature": {
+    "yolo_sha256": "eb4b471a364b708eb417cb3b0f3fb6a86933e9e5f7dee8fb9f4d250fe274baa3",
+    "siamese_sha256": "4a1f438d1920e60129ceb89a153c047c27ce904214fc65e9a51f6d458b52839d",
+    "gt_sha256": "b97a9f2392b5746534e4e1e7c1bc485488b2baa7b00ee35f500b5d7da6149597"
+  },
+  "search_config_count": 204,
+  "best": {
+    "config": {"max_gap": 5, "min_seg_len": 25, "max_center_speed": 0.5, "max_log_scale_speed": null},
+    "mean_st_iou": 0.7376586482071906,
+    "detected_frames": 8744,
+    "delta_vs_legacy": 0.015606857503439153,
+    "delta_vs_previous_fine": 0.002038059708604203,
+    "per_video": {
+      "BlackBox_0": 0.7055821670142061,
+      "BlackBox_1": 0.8141389663373035,
+      "CardboardBox_0": 0.5579702324836976,
+      "CardboardBox_1": 0.8157206489498665,
+      "LifeJacket_0": 0.7385728185255696,
+      "LifeJacket_1": 0.7939670559325005
+    }
+  },
+  "convergence": {
+    "min_segment_peak": 25,
+    "score_at_min_segment_22": 0.7351708806087406,
+    "score_at_min_segment_30": 0.7351039826873672,
+    "score_at_min_segment_35": 0.7251677822047532,
+    "max_gap_is_upper_boundary": true,
+    "center_speed_is_upper_finite_boundary": true
+  },
+  "decision": {
+    "promote_now": false,
+    "run_joint_refinement": true,
+    "reason": "The min-segment optimum is bracketed, but max-gap and finite center-speed still touch the search boundary. Test their interaction once with min-segment fixed near 25."
+  },
+  "verification_limit": "Artifacts were inspected locally; inference/cache replay was not rerun locally."
+}

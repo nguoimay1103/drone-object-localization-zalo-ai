@@ -1,0 +1,33 @@
+# Relative paths resolve from this YAML's directory. Replace /CHANGE_ME paths.
+paths:
+  samples_dir: /CHANGE_ME/public_test/samples
+  annotations: /CHANGE_ME/public_test/annotations/drone_annotations.json
+  yolo_weights: ../demo/yolo_drone_best.pt
+  siamese_weights: ../demo/siamese_mobilenet_best.pth
+  output_dir: /kaggle/working/baseline_0_700454
+
+inference:
+  confidence_threshold: 0.05
+  matching_threshold: 0.45
+  yolo_only_threshold: 0.2
+  weight_yolo: 0.4
+  weight_siamese: 0.3
+  weight_color: 0.3
+  use_tta: true
+  use_multiscale_ref: true
+  ref_scales: [224, 112, 56]
+  temporal_max_gap: 5
+  temporal_min_seg: 3
+  device: auto
+  # null preserves NB06's omission; capture effective values from the predictor.
+  imgsz: null
+  batch: null
+
+checkpoints:
+  yolo_sha256: 83d5201ba4669ca75bd340a933aaf0d832f45995972af39d30180733d8924116
+  siamese_sha256: 8babb894124d3da0e4e67d871414d9b56ca84be15c80318090fab94fcdee3ea6
+
+objective:
+  priority: offline_quality
+  target_fps: 25.0
+  fps_is_hard_constraint: false  # Provisional interpretation; not enforced.

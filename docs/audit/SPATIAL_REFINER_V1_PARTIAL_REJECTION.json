@@ -1,0 +1,14 @@
+{
+  "experiment": "spatial_refiner_v1_identity_cv",
+  "status": "rejected_from_partial_cv_and_kernel_failure",
+  "source": "User-provided Kaggle log, 2026-09-07",
+  "data_and_torchscript_preflight_passed": true,
+  "observed_folds": {
+    "fold_0_best_delta": -0.1457,
+    "fold_1_best_delta": -0.1358,
+    "fold_2_best_observed_delta": -0.1567
+  },
+  "worst_observed_epoch_delta": -0.2253,
+  "kernel_died_during_fold": 2,
+  "decision": "Do not rerun V1. Replace absolute corner prediction with anchor-preserving residual V2."
+}

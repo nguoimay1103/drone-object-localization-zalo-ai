@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "experiment": "siamese_identity_v1",
+  "evaluation_status": "completed_on_user_manually_annotated_public_test",
+  "evaluation_note": "Scores and timestamps were supplied by the user from NB06 logs; they were not rerun locally.",
+  "controlled_settings": {
+    "tta": true,
+    "multiscale_reference": true,
+    "fusion_weights": {
+      "yolo": 0.4,
+      "siamese": 0.3,
+      "color": 0.3
+    },
+    "temporal_max_gap": 5,
+    "temporal_min_segment": 3
+  },
+  "baseline": {
+    "mean_st_iou": 0.700454,
+    "logged_elapsed_seconds": 1224.6,
+    "detected_frames_total": 9628,
+    "per_video": {
+      "BlackBox_0": {"st_iou": 0.6014, "detected_frames": 1459},
+      "BlackBox_1": {"st_iou": 0.7656, "detected_frames": 770},
+      "CardboardBox_0": {"st_iou": 0.6109, "detected_frames": 1107},
+      "CardboardBox_1": {"st_iou": 0.7918, "detected_frames": 1733},
+      "LifeJacket_0": {"st_iou": 0.7470, "detected_frames": 2499},
+      "LifeJacket_1": {"st_iou": 0.6860, "detected_frames": 2060}
+    }
+  },
+  "identity_v1": {
+    "checkpoint_sha256": "4a1f438d1920e60129ceb89a153c047c27ce904214fc65e9a51f6d458b52839d",
+    "best_training_epoch": 2,
+    "mean_st_iou": 0.698426,
+    "logged_elapsed_seconds": 1175.8,
+    "detected_frames_total": 9254,
+    "per_video": {
+      "BlackBox_0": {"st_iou": 0.6359, "detected_frames": 1470},
+      "BlackBox_1": {"st_iou": 0.7332, "detected_frames": 845},
+      "CardboardBox_0": {"st_iou": 0.5174, "detected_frames": 861},
+      "CardboardBox_1": {"st_iou": 0.7746, "detected_frames": 1730},
+      "LifeJacket_0": {"st_iou": 0.7566, "detected_frames": 2488},
+      "LifeJacket_1": {"st_iou": 0.7729, "detected_frames": 1860}
+    }
+  },
+  "comparison": {
+    "reported_mean_st_iou_delta": -0.002028,
+    "relative_mean_delta_percent": -0.2895265,
+    "detected_frames_delta": -374,
+    "per_video_st_iou_delta": {
+      "BlackBox_0": 0.0345,
+      "BlackBox_1": -0.0324,
+      "CardboardBox_0": -0.0935,
+      "CardboardBox_1": -0.0172,
+      "LifeJacket_0": 0.0096,
+      "LifeJacket_1": 0.0869
+    }
+  },
+  "decision": {
+    "promote_as_default": false,
+    "default_checkpoint": "baseline",
+    "reason": "Identity-v1 reduced reported mean ST-IoU by 0.002028 under otherwise identical reported NB06 settings.",
+    "interpretation_limits": [
+      "Only six manually annotated videos were evaluated.",
+      "Detected-frame count does not distinguish recovered target frames from false positives.",
+      "The approximately 4 percent logged runtime difference is a single-run observation and is not treated as a speed improvement."
+    ]
+  }
+}

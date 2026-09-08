@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "source": "Kaggle NB05 identity_mining_v2 artifacts supplied by the user",
+  "experiment": "identity_mining_v2",
+  "status": "completed",
+  "epochs_completed": 15,
+  "checkpoint": {
+    "selected_epoch": 2,
+    "selection_metric": "minimum sample-weighted validation loss over fixed validation triplets",
+    "sha256_reported": "e8619e853a4efd93cf7575ef229f077189adea47a5969aba9c65b78e05d34e2d",
+    "sha256_verified_from_downloaded_file": "e8619e853a4efd93cf7575ef229f077189adea47a5969aba9c65b78e05d34e2d",
+    "best_val_loss": 0.24685962077508977,
+    "val_accuracy_at_selected_epoch": 0.8151927437641724
+  },
+  "data": {
+    "data_index_sha256": "b86542cafe23908e8d3f2f2aa55955b3aef6ab3531e8a3a2681dffeda4c67b32",
+    "val_triplets_sha256": "2c4088e16cff35879916ad0c6c0db77ab7119866cdaea04a6558eb287a2313a1",
+    "train_identities": ["Backpack", "Laptop", "MobilePhone", "Person1", "WaterBottle"],
+    "validation_identities": ["Jacket", "Lifering"],
+    "train_samples": 3093,
+    "validation_samples": 882
+  },
+  "training_diagnostics": {
+    "epoch_1": {
+      "train_loss": 0.3833659338951111,
+      "train_accuracy": 0.7190029764175415,
+      "val_loss": 0.27090800855976116,
+      "val_accuracy": 0.9342403628117913
+    },
+    "epoch_2_selected": {
+      "train_loss": 0.14869250774383544,
+      "train_accuracy": 0.9346279764175415,
+      "val_loss": 0.24685962077508977,
+      "val_accuracy": 0.8151927437641724
+    },
+    "epoch_15": {
+      "train_loss": 0.011989411674439907,
+      "train_accuracy": 0.995,
+      "val_loss": 0.3319911102251131,
+      "val_accuracy": 0.6609977343185148
+    },
+    "interpretation": "Validation loss reaches its minimum at epoch 2 while train loss continues to fall and validation degrades; the saved best checkpoint correctly prevents later overfit epochs from being selected."
+  },
+  "identity_v1_context": {
+    "checkpoint_sha256": "4a1f438d1920e60129ceb89a153c047c27ce904214fc65e9a51f6d458b52839d",
+    "selected_epoch": 2,
+    "best_val_loss": 0.20812357872589377,
+    "val_accuracy_at_selected_epoch": 0.927437641723356,
+    "comparison_limit": "The mining-v2 validation negative images and fixed triplets changed, so validation metrics are diagnostic and must not be treated as a controlled ranking between checkpoints."
+  },
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.10.0+cu128",
+    "torchvision": "0.25.0+cu128",
+    "opencv": "4.13.0",
+    "numpy": "2.0.2",
+    "cuda": "12.8",
+    "gpus": ["Tesla T4", "Tesla T4"],
+    "bitwise_gpu_determinism_guaranteed": false
+  },
+  "decision": {
+    "training_run_valid": true,
+    "approved_for_controlled_nb06_evaluation": true,
+    "promote_as_default": false,
+    "reason": "Artifact integrity, split and data hashes pass, but ST-IoU has not yet been measured.",
+    "evaluation_protocol": {
+      "run_calibration": false,
+      "weights": {"yolo": 0.425, "siamese": 0.475, "color": 0.1},
+      "threshold": 0.54,
+      "change_only": "SIAMESE_MODEL_PATH to the mining-v2 checkpoint",
+      "reference_mean_st_iou": 0.7220517907037515
+    }
+  }
+}

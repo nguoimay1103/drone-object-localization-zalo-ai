@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "drone-localization"
+version = "0.1.0"
+description = "Query-conditioned spatio-temporal object localization for drone videos"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["PyYAML>=6,<7"]
+
+[project.optional-dependencies]
+inference = [
+  "ultralytics==8.3.221",
+  "torch",
+  "torchvision",
+  "opencv-python",
+  "numpy",
+  "Pillow",
+]
+test = [
+  "numpy>=1.26,<3",
+  "PyYAML>=6,<7",
+]
+
+[project.urls]
+Repository = "https://github.com/nguoimay1103/drone-object-localization-zalo-ai"
+Documentation = "https://github.com/nguoimay1103/drone-object-localization-zalo-ai/tree/main/docs"
+
+[tool.setuptools.packages.find]
+where = ["src"]

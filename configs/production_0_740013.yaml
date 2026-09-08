@@ -1,0 +1,35 @@
+# Best locked offline configuration. Override every /CHANGE_ME path via CLI or
+# copy this file and edit it locally. Checkpoint hashes prevent silent drift.
+paths:
+  samples_dir: /CHANGE_ME/public_test/samples
+  annotations: /CHANGE_ME/public_test/annotations/drone_annotations.json
+  yolo_weights: /CHANGE_ME/weights/yolo_drone_700.pt
+  siamese_weights: /CHANGE_ME/weights/siamese_identity_v1.pth
+  output_dir: /CHANGE_ME/outputs/production_0_740013
+
+inference:
+  confidence_threshold: 0.05
+  matching_threshold: 0.54
+  yolo_only_threshold: 0.2
+  weight_yolo: 0.425
+  weight_siamese: 0.475
+  weight_color: 0.10
+  use_tta: true
+  use_multiscale_ref: true
+  ref_scales: [224, 112, 56]
+  temporal_max_gap: 7
+  temporal_min_seg: 24
+  temporal_max_center_speed: 0.4
+  temporal_max_log_scale_speed: null
+  device: auto
+  imgsz: 640
+  batch: null
+
+checkpoints:
+  yolo_sha256: eb4b471a364b708eb417cb3b0f3fb6a86933e9e5f7dee8fb9f4d250fe274baa3
+  siamese_sha256: 4a1f438d1920e60129ceb89a153c047c27ce904214fc65e9a51f6d458b52839d
+
+objective:
+  priority: offline_quality
+  target_fps: 25.0
+  fps_is_hard_constraint: false

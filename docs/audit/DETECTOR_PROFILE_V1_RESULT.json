@@ -1,0 +1,61 @@
+{
+  "experiment": "detector_profile_v1",
+  "status": "completed",
+  "production_control": {
+    "mean_st_iou": 0.740013088928747,
+    "detected_frames": 8890,
+    "predictions_unchanged": true,
+    "per_video_metric_exact_parity": true,
+    "gt_frame_coverage_exact": true
+  },
+  "detector": {
+    "checkpoint_sha256": "eb4b471a364b708eb417cb3b0f3fb6a86933e9e5f7dee8fb9f4d250fe274baa3",
+    "detection_strides": [8.0, 16.0, 32.0],
+    "has_p2_stride_4_or_finer": false,
+    "has_p3_stride_8_or_finer": true,
+    "explicit_imgsz_in_production_call": false,
+    "reference_imgsz_for_profile_only": 640
+  },
+  "global": {
+    "gt_frames": 9505,
+    "no_candidate_frames": 118,
+    "no_candidate_rate": 0.012414518674381904,
+    "mean_candidate_count": 1.9816938453445554,
+    "mean_oracle_iou": 0.8297176099007963,
+    "oracle_recall_iou_03": 0.9579168858495528,
+    "oracle_recall_iou_05": 0.948132561809574,
+    "oracle_recall_iou_07": 0.8898474487112046,
+    "projected_lt_16_frames": 4605,
+    "projected_lt_16_rate": 0.4844818516570226,
+    "projected_lt_32_frames": 7461,
+    "projected_lt_32_rate": 0.7849552866912152
+  },
+  "key_size_bin": {
+    "name": "very_small_8_16",
+    "gt_frames": 4439,
+    "no_candidate_frames": 100,
+    "oracle_recall_iou_03": 0.9209281369677855,
+    "oracle_recall_iou_05": 0.9166478936697454,
+    "oracle_recall_iou_07": 0.8900653300292859,
+    "localization_miss_iou_05": 370,
+    "share_of_global_iou_05_misses": 0.7505070993914807
+  },
+  "key_video_findings": {
+    "LifeJacket_0": {
+      "projected_mean_min_side_px": 12.558983262108262,
+      "no_candidate_frames": 87,
+      "oracle_recall_iou_03": 0.8817663817663818,
+      "oracle_recall_iou_05": 0.8817663817663818,
+      "localization_miss_iou_05": 332,
+      "share_of_global_iou_05_misses": 0.6734279918864098
+    },
+    "CardboardBox_0": {
+      "projected_mean_min_side_px": 13.330546813532651,
+      "oracle_recall_iou_03": 0.989771833202203,
+      "oracle_recall_iou_05": 0.9221085759244689,
+      "localization_miss_iou_03": 13,
+      "localization_miss_iou_05": 99
+    }
+  },
+  "decision": "Run a global explicit-resolution candidate A/B first: establish an explicit 640 control and compare 960 with identical TTA/confidence/downstream settings. Evaluate 1280 or hybrid full-frame+SAHI only if 960 improves cross-identity candidate recall without an unacceptable final ST-IoU drop. Keep P2 as a retraining branch if inference scaling does not resolve sub-16-pixel targets."
+}
