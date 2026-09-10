@@ -1,0 +1,82 @@
+{
+  "experiment": "checkpoint_score_calibration_v1_identity_cv",
+  "status": "rejected_not_promoted",
+  "source_files": {
+    "summary": "user-provided-artifact/checkpoint_score_calibration_v1_identity_cv_summary.json",
+    "grid": "user-provided-artifact/checkpoint_score_calibration_v1_identity_cv_results.csv",
+    "folds": "user-provided-artifact/checkpoint_score_calibration_v1_identity_cv_folds.csv"
+  },
+  "protocol": {
+    "configs_per_variant": 1100,
+    "identity_folds": 3,
+    "per_object_parameters": false,
+    "temporal_locked": true,
+    "control_prediction_parity": true
+  },
+  "production": {
+    "locked_mean_st_iou": 0.740013088928747,
+    "full_public_best_mean_st_iou": 0.7429072294627708,
+    "full_public_best_delta_vs_locked": 0.0028941405340238147,
+    "full_public_best_config": {
+      "yolo_power": 1.5,
+      "weights": {
+        "yolo": 0.35,
+        "siamese": 0.5,
+        "color": 0.15
+      },
+      "matching_threshold": 0.46
+    },
+    "mean_identity_cv_st_iou": 0.6063146907647002,
+    "mean_identity_cv_delta_vs_locked": -0.13369839816404672,
+    "recommendation_votes": 1,
+    "promotion_passed": false
+  },
+  "p3_control": {
+    "locked_mean_st_iou": 0.6866363856195091,
+    "full_public_best_mean_st_iou": 0.6905946446337937,
+    "full_public_best_delta_vs_locked": 0.003958259014284593,
+    "full_public_best_delta_vs_production": -0.0494184442949533,
+    "full_public_best_config": {
+      "yolo_power": 1.5,
+      "weights": {
+        "yolo": 0.25,
+        "siamese": 0.7,
+        "color": 0.05
+      },
+      "matching_threshold": 0.48
+    },
+    "mean_identity_cv_st_iou": 0.5151708955216802,
+    "mean_identity_cv_delta_vs_production": -0.2248421934070668,
+    "improved_heldout_identities_vs_production": 0,
+    "worst_heldout_identity_delta_vs_production": -0.4562613709902414,
+    "recommendation_votes": 1,
+    "promotion_passed": false
+  },
+  "p2_stride4": {
+    "locked_mean_st_iou": 0.6536326558641348,
+    "full_public_best_mean_st_iou": 0.6791142267514045,
+    "full_public_best_delta_vs_locked": 0.025481570887269767,
+    "full_public_best_delta_vs_production": -0.0608988621773425,
+    "full_public_best_config": {
+      "yolo_power": 0.75,
+      "weights": {
+        "yolo": 0.25,
+        "siamese": 0.65,
+        "color": 0.1
+      },
+      "matching_threshold": 0.48
+    },
+    "mean_identity_cv_st_iou": 0.5086914352325819,
+    "mean_identity_cv_delta_vs_production": -0.23132165369616509,
+    "improved_heldout_identities_vs_production": 0,
+    "worst_heldout_identity_delta_vs_production": -0.4791225407384075,
+    "recommendation_votes": 1,
+    "promotion_passed": false
+  },
+  "decision": "Retain the production detector and disable checkpoint score calibration by default.",
+  "interpretation": {
+    "observed": "Score calibration recovers part of the locked P2/P3 loss, especially for P2, but neither checkpoint approaches production. Fold-selected configurations do not transfer to the held-out identity.",
+    "inference": "Checkpoint score mismatch is a secondary contributor rather than the primary cause of the detector regression. Further tuning on the same six videos has high overfitting risk."
+  },
+  "next_step": "Run an exact original-P3 reproduction control with seed 0, one T4, batch 16, the verified dataset manifest, and locked downstream evaluation before modifying detector architecture again."
+}

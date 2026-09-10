@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "experiment": "siamese_identity_v1_calibration_fine",
+  "source": "Kaggle calibration_summary_fine_identity_v1.json and calibration_results_fine_identity_v1.csv supplied by the user",
+  "reproduced_locally": false,
+  "cache_replay": {
+    "mean_st_iou": 0.6984256424207067,
+    "detected_frames": 9254,
+    "matches_prior_identity_v1_run": true
+  },
+  "search": {
+    "configurations": 2961,
+    "unique_weight_sets": 141,
+    "thresholds": 21,
+    "best_weights": {"yolo": 0.425, "siamese": 0.475, "color": 0.1},
+    "best_matching_threshold": 0.54,
+    "best_mean_st_iou": 0.7220517907037515,
+    "best_detected_frames": 9295,
+    "delta_vs_coarse_identity_best": 0.0017776806489677721,
+    "delta_vs_calibrated_baseline": 0.01463479070375151,
+    "delta_vs_uncalibrated_baseline": 0.02159779070375145,
+    "configs_above_coarse_identity_best": 12,
+    "configs_above_calibrated_baseline": 431,
+    "configs_within_0_00005_of_best": 3,
+    "configs_within_0_001_of_best": 4,
+    "configs_within_0_002_of_best": 17,
+    "configs_within_0_005_of_best": 85
+  },
+  "per_video": {
+    "BlackBox_0": 0.6972756534799347,
+    "BlackBox_1": 0.7442997065617888,
+    "CardboardBox_0": 0.611672831970968,
+    "CardboardBox_1": 0.8196264396272189,
+    "LifeJacket_0": 0.7277568440233048,
+    "LifeJacket_1": 0.7316792685592937
+  },
+  "threshold_sensitivity_at_best_weights": {
+    "0.530": 0.7183593994207963,
+    "0.535": 0.7177129907736818,
+    "0.540": 0.7220517907037515,
+    "0.545": 0.7162992143627541,
+    "0.550": 0.7084064683243851
+  },
+  "decision": {
+    "status": "locked_offline_production_configuration",
+    "checkpoint_sha256": "4a1f438d1920e60129ceb89a153c047c27ce904214fc65e9a51f6d458b52839d",
+    "weights": {"yolo": 0.425, "siamese": 0.475, "color": 0.1},
+    "matching_threshold": 0.54,
+    "reason": "The fine optimum is inside the searched weight ranges and three distinct configurations are within 0.00005; further calibration on the same six videos is more likely to fit annotation-specific discontinuities than deliver a meaningful gain.",
+    "official_competition_score": false
+  }
+}

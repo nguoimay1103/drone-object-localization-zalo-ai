@@ -1,0 +1,58 @@
+{
+  "experiment": "hybrid_sahi_candidate_v1",
+  "status": "completed_not_promoted_but_candidate_headroom_confirmed",
+  "legacy": {
+    "mean_st_iou": 0.740013088928747,
+    "detected_frames": 8890,
+    "total_candidates": 42237,
+    "no_candidate_gt_frames": 118,
+    "mean_oracle_iou": 0.8297176099007963,
+    "oracle_recall_iou_05": 0.948132561809574,
+    "sub16_oracle_recall_iou_05": 0.9172638436482085
+  },
+  "hybrid": {
+    "mean_st_iou": 0.7398457096988081,
+    "delta_st_iou": -0.00016737922993881327,
+    "detected_frames": 9419,
+    "total_candidates": 86008,
+    "no_candidate_gt_frames": 89,
+    "mean_oracle_iou": 0.8545811634210715,
+    "oracle_recall_iou_05": 0.9556023145712783,
+    "oracle_recall_iou_05_delta": 0.007469752761704362,
+    "sub16_oracle_recall_iou_05": 0.9233441910966341,
+    "sub16_recall_delta": 0.006080347448425671
+  },
+  "oracle_guards": {
+    "monotonic_per_gt_frame": true,
+    "regression_count": 0,
+    "improved_gt_frames": 4430,
+    "minimum_per_frame_delta": 0.0
+  },
+  "source_selection": {
+    "top1_legacy_full_frame": 14654,
+    "top1_sahi_tile": 9874,
+    "accepted_legacy_full_frame": 5628,
+    "accepted_sahi_tile": 3737
+  },
+  "identity_deltas": {
+    "BlackBox": 0.00047905397717507014,
+    "CardboardBox": 0.022048531785958225,
+    "LifeJacket": -0.023029723452949957
+  },
+  "key_video_deltas": {
+    "CardboardBox_0": 0.04586434484729829,
+    "LifeJacket_1": -0.0446035490300033
+  },
+  "runtime": {
+    "tile_branch_fps": 42.261136494879345,
+    "estimated_sequential_hybrid_fps": 17.650324935779054,
+    "estimated_parallel_two_gpu_fps": 30.308744167118398,
+    "peak_cuda_memory_mb": 453.2587890625
+  },
+  "promotion": {
+    "passed": false,
+    "improved_identity_count": 2,
+    "worst_identity_delta": -0.023029723452949957
+  },
+  "decision": "Keep the reusable tile cache but reject equal-source union. Candidate generation has useful headroom; next run should replay source-aware admission without YOLO: missing-legacy fallback and weak-legacy rescue using the locked production threshold. Do not move to P2 yet."
+}

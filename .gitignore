@@ -1,4 +1,52 @@
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environments and editors
+.venv/
+venv/
+.test-deps/
+.env
+.env.*
+.idea/
+.vscode/
+*.swp
+
+# Jupyter
 .ipynb_checkpoints/
+
+# Datasets, generated media and experiment outputs
+data/
+datasets/
+outputs/
+results/
+runs/
+artifacts/
+wandb/
+mlruns/
+*.mp4
+*.avi
+*.mov
+*.npy
+*.npz
+*.pkl
+*.pickle
+*.tmp
+
+# Model artifacts should be distributed through GitHub Releases or external storage.
+*.pt
+*.pth
+*.onnx
+*.engine
+*.torchscript
+*.ts
+
+# OS files
+.DS_Store
+Thumbs.db

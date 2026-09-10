@@ -1,0 +1,36 @@
+{
+  "experiment": "spatial_localization_headroom_v1",
+  "status": "completed_gate_passed",
+  "production_mean_st_iou": 0.740013088928747,
+  "production_frames": 8890,
+  "global_counts": {
+    "gt_frames": 9505,
+    "prediction_frames": 8890,
+    "shared_frames": 8481,
+    "good_overlap_frames": 8332,
+    "low_overlap_frames": 149,
+    "missed_gt_frames": 1024,
+    "background_prediction_frames": 409
+  },
+  "scenarios": {
+    "perfect_shared": {"mean_st_iou": 0.8522316886049538, "delta": 0.11221859967620684},
+    "perfect_good_overlap": {"mean_st_iou": 0.8391783583701509, "delta": 0.09916526944140391},
+    "candidate_keep_best": {"mean_st_iou": 0.7475544091002816, "delta": 0.007541320171534638},
+    "local_candidate_keep_best": {"mean_st_iou": 0.7428793300472184, "delta": 0.0028662411184714465},
+    "center_only_good_overlap": {"mean_st_iou": 0.7624751451559838, "delta": 0.02246205622723685},
+    "size_only_good_overlap": {"mean_st_iou": 0.7593296524285248, "delta": 0.01931656349977784}
+  },
+  "perfect_good_overlap_identity_delta": {
+    "BlackBox": 0.06578017216265947,
+    "CardboardBox": 0.13298714540699602,
+    "LifeJacket": 0.09872849075455614
+  },
+  "decision": {
+    "minimum_macro_ceiling_delta": 0.01,
+    "minimum_identity_ceiling_delta": 0.005,
+    "minimum_qualifying_identities": 2,
+    "qualifying_identity_count": 3,
+    "run_alpha_refine_ab": true
+  },
+  "source": "User-provided Kaggle artifacts, 2026-09-06"
+}

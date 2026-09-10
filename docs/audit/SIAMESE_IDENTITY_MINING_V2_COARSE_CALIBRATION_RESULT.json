@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "source": "Kaggle calibration artifacts supplied by the user",
+  "experiment": "identity_mining_v2_calibration",
+  "profile": "coarse_mining_v2",
+  "cache_signature": {
+    "yolo_sha256": "eb4b471a364b708eb417cb3b0f3fb6a86933e9e5f7dee8fb9f4d250fe274baa3",
+    "siamese_sha256": "e8619e853a4efd93cf7575ef229f077189adea47a5969aba9c65b78e05d34e2d",
+    "gt_sha256": "b97a9f2392b5746534e4e1e7c1bc485488b2baa7b00ee35f500b5d7da6149597",
+    "tta": true,
+    "multiscale_reference": true
+  },
+  "search": {
+    "config_count": 1820,
+    "threshold_range": [0.35, 0.60],
+    "siamese_weight_range": [0.20, 0.65],
+    "color_weight_range": [0.00, 0.30],
+    "minimum_yolo_weight": 0.10
+  },
+  "default": {
+    "weights": {"yolo": 0.425, "siamese": 0.475, "color": 0.1},
+    "threshold": 0.54,
+    "mean_st_iou": 0.6994511690588753,
+    "detected_frames": 8588
+  },
+  "best": {
+    "weights": {"yolo": 0.55, "siamese": 0.4, "color": 0.05},
+    "threshold": 0.58,
+    "mean_st_iou": 0.7173005994342097,
+    "detected_frames": 9246,
+    "per_video": {
+      "BlackBox_0": 0.6935168147448103,
+      "BlackBox_1": 0.7542329973829601,
+      "CardboardBox_0": 0.6182496040273976,
+      "CardboardBox_1": 0.8186352706073997,
+      "LifeJacket_0": 0.7199321542126488,
+      "LifeJacket_1": 0.6992367556300418
+    }
+  },
+  "comparison": {
+    "delta_vs_mining_v2_locked_default": 0.017849430375334374,
+    "delta_vs_identity_v1_calibrated": -0.004751191269541821,
+    "delta_vs_baseline_checkpoint_calibrated": 0.009883599434209689,
+    "identity_v1_calibrated_reference": 0.7220517907037515,
+    "baseline_checkpoint_calibrated_reference": 0.707417
+  },
+  "top_region": {
+    "configs_within_0_001_of_best": 2,
+    "configs_within_0_002_of_best": 8,
+    "within_0_002_ranges": {
+      "threshold": [0.55, 0.60],
+      "yolo_weight": [0.50, 0.60],
+      "siamese_weight": [0.30, 0.50],
+      "color_weight": [0.00, 0.10]
+    }
+  },
+  "decision": {
+    "promote_over_identity_v1": false,
+    "run_fine_calibration": true,
+    "reason": "Coarse calibration recovers the locked-config regression and beats the calibrated baseline checkpoint, but remains 0.004751 below identity-v1. The top region is narrow enough for one cache-only fine search."
+  },
+  "verification_limit": "Artifact contents were inspected locally; model inference itself was not rerun locally."
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "source": "NB06 log supplied by the user",
+  "experiment": "identity_mining_v2_locked_production_eval",
+  "checkpoint_sha256": "e8619e853a4efd93cf7575ef229f077189adea47a5969aba9c65b78e05d34e2d",
+  "controlled_settings": {
+    "tta": true,
+    "multiscale_reference": true,
+    "weights": {"yolo": 0.425, "siamese": 0.475, "color": 0.1},
+    "matching_threshold": 0.54,
+    "temporal_max_gap": 5,
+    "temporal_min_segment": 3
+  },
+  "result": {
+    "mean_st_iou": 0.699451,
+    "detected_frames": 8588,
+    "logged_elapsed_seconds": 1261.0,
+    "per_video": {
+      "BlackBox_0": 0.6920,
+      "BlackBox_1": 0.7890,
+      "CardboardBox_0": 0.3947,
+      "CardboardBox_1": 0.8026,
+      "LifeJacket_0": 0.7412,
+      "LifeJacket_1": 0.7771
+    }
+  },
+  "identity_v1_calibrated_reference": {
+    "mean_st_iou": 0.7220517907037515,
+    "detected_frames": 9295,
+    "per_video": {
+      "BlackBox_0": 0.6973,
+      "BlackBox_1": 0.7443,
+      "CardboardBox_0": 0.6117,
+      "CardboardBox_1": 0.8196,
+      "LifeJacket_0": 0.7278,
+      "LifeJacket_1": 0.7317
+    }
+  },
+  "comparison": {
+    "mean_st_iou_delta": -0.02260079070375154,
+    "relative_delta_percent": -3.1300788,
+    "detected_frames_delta": -707,
+    "per_video_delta": {
+      "BlackBox_0": -0.0053,
+      "BlackBox_1": 0.0447,
+      "CardboardBox_0": -0.2170,
+      "CardboardBox_1": -0.0170,
+      "LifeJacket_0": 0.0134,
+      "LifeJacket_1": 0.0454
+    }
+  },
+  "decision": {
+    "promote_as_default": false,
+    "run_checkpoint_specific_calibration": true,
+    "reason": "The locked identity-v1 threshold yields 707 fewer frames and a concentrated CardboardBox_0 regression. The new embedding score distribution must be calibrated before rejecting the checkpoint."
+  },
+  "verification_limit": "Scores and timing were supplied from Kaggle and were not rerun locally."
+}

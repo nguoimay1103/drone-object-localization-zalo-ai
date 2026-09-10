@@ -1,0 +1,58 @@
+{
+  "experiment": "resolution_candidate_ab_v1",
+  "status": "completed_not_promoted",
+  "control": {
+    "explicit_640_passed": true,
+    "mean_st_iou_abs_delta": 0.0,
+    "max_per_video_st_iou_abs_delta": 0.0,
+    "total_candidate_count_equal": true,
+    "oracle_recall_iou_05_abs_delta": 0.0,
+    "sub16_recall_iou_05_abs_delta": 0.0
+  },
+  "variants": {
+    "explicit_640": {
+      "mean_st_iou": 0.740013088928747,
+      "detected_frames": 8890,
+      "total_candidates": 42237,
+      "no_candidate_gt_frames": 118,
+      "mean_oracle_iou": 0.8297176099007963,
+      "oracle_recall_iou_05": 0.948132561809574,
+      "sub16_oracle_recall_iou_05": 0.9172638436482085,
+      "aggregate_fps": 30.308744167118398,
+      "peak_cuda_memory_mb": 81.15380859375
+    },
+    "explicit_960": {
+      "mean_st_iou": 0.6862716041830245,
+      "delta_st_iou_vs_640": -0.05374148474572249,
+      "detected_frames": 8499,
+      "total_candidates": 37281,
+      "total_candidate_delta": -4956,
+      "no_candidate_gt_frames": 234,
+      "mean_oracle_iou": 0.815299327191538,
+      "oracle_recall_iou_05": 0.938348237769595,
+      "sub16_oracle_recall_iou_05": 0.9192182410423453,
+      "sub16_recall_delta": 0.001954397394136831,
+      "aggregate_fps": 29.459937751583176,
+      "peak_cuda_memory_mb": 121.95849609375
+    }
+  },
+  "identity_deltas_960_vs_640": {
+    "BlackBox": -0.08138141170046675,
+    "CardboardBox": -0.07292146808275524,
+    "LifeJacket": -0.0069215744539457
+  },
+  "per_video_deltas_960_vs_640": {
+    "BlackBox_0": 0.01920770452216436,
+    "BlackBox_1": -0.18197052792309776,
+    "CardboardBox_0": -0.03364556702888655,
+    "CardboardBox_1": -0.11219736913662393,
+    "LifeJacket_0": -0.0011590776006830117,
+    "LifeJacket_1": -0.012684071307208389
+  },
+  "promotion": {
+    "passed": false,
+    "improved_identity_count": 0,
+    "worst_identity_delta": -0.08138141170046675
+  },
+  "decision": "Reject explicit 960 and do not test 1280. The candidate oracle also degrades, so recalibrating fusion is not the next step. Keep production at explicit-equivalent 640 and test a hybrid that preserves every legacy full-frame candidate while adding native-scale tiled candidates."
+}

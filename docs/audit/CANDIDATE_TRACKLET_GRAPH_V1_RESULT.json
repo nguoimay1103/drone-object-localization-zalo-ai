@@ -1,0 +1,71 @@
+{
+  "status": "rejected_not_promoted",
+  "source_directory": "user-provided-artifact/candidate_tracklet_graph_v1_identity_cv",
+  "evaluation_scope": "48 global configurations; three leave-one-identity-out folds over six manually annotated public-test videos",
+  "production_control": {
+    "exact_prediction_parity": true,
+    "mean_st_iou": 0.740013088928747,
+    "detected_frames": 8890
+  },
+  "best_full_public_grid_result": {
+    "config": {
+      "top_k": 5,
+      "motion_weight": 0.02,
+      "state_change_penalty": 0.02,
+      "max_center_speed": 0.6,
+      "camera_compensation": true,
+      "emission_scale": 1.0
+    },
+    "mean_st_iou": 0.6991350993222764,
+    "delta_vs_production": -0.0408779896064706,
+    "detected_frames": 8208
+  },
+  "cross_validation": {
+    "recommended_config": {
+      "top_k": 5,
+      "motion_weight": 0.02,
+      "state_change_penalty": 0.02,
+      "max_center_speed": 0.4,
+      "camera_compensation": true,
+      "emission_scale": 1.0
+    },
+    "recommendation_votes": 1,
+    "mean_cv_delta": -0.05763355895950373,
+    "improved_identity_count": 0,
+    "worst_identity_delta": -0.14001473556023292,
+    "promotion_passed": false
+  },
+  "recommended_full_public_result": {
+    "mean_st_iou": 0.6943364085999688,
+    "delta_vs_production": -0.04567668032877814,
+    "detected_frames": 8042,
+    "rescued_below_threshold": 81,
+    "suppressed_above_threshold": 475,
+    "replay_fps": 45058.6962442015,
+    "per_video_delta": {
+      "BlackBox_0": 0.04114443952390001,
+      "BlackBox_1": -0.0010474247861866903,
+      "CardboardBox_0": -0.2662409075835073,
+      "CardboardBox_1": -0.0047322342845373955,
+      "LifeJacket_0": -0.06430678393608524,
+      "LifeJacket_1": 0.02112282909374763
+    }
+  },
+  "grid_diagnostics": {
+    "all_48_configs_below_production": true,
+    "mean_st_iou_range": [
+      0.6336260533781666,
+      0.6991350993222764
+    ],
+    "identity_best_delta": {
+      "BlackBox": 0.02004850736885666,
+      "CardboardBox": -0.12704891688286402,
+      "LifeJacket": 0.00500920007664285
+    },
+    "camera_proxy_paired_mean_delta": 0.005187793148081145,
+    "camera_proxy_positive_pairs": 23,
+    "camera_proxy_pair_count": 24,
+    "correlation_suppressed_above_threshold_vs_mean_st_iou": -0.9764540721622672
+  },
+  "decision": "Reject Candidate Tracklet Graph V1. Keep production ST-IoU 0.740013088928747. Do not widen the same grid: better settings already move toward weaker constraints and the framewise control. Profile true adjacent-frame motion and redesign association so production strong detections cannot be deleted before another tracking experiment."
+}

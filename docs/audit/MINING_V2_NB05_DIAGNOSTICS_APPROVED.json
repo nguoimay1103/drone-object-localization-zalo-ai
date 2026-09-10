@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "source": "Kaggle NB05 identity_mining_v2 data_summary.json supplied by the user",
+  "experiment": "identity_mining_v2",
+  "data_index_sha256": "b86542cafe23908e8d3f2f2aa55955b3aef6ab3531e8a3a2681dffeda4c67b32",
+  "val_triplets_sha256": "2c4088e16cff35879916ad0c6c0db77ab7119866cdaea04a6558eb287a2313a1",
+  "train": {
+    "identities": 5,
+    "videos": 10,
+    "anchors": 30,
+    "samples": 3093,
+    "hard_negatives": 1971,
+    "background_negatives": 23628,
+    "pool_negatives": 25599,
+    "last_batch_size": 21
+  },
+  "validation": {
+    "identities": 2,
+    "videos": 4,
+    "identity_ids": ["Jacket", "Lifering"],
+    "anchors": 12,
+    "samples": 882,
+    "hard_negatives": 862,
+    "background_negatives": 8674,
+    "pool_negatives": 9536,
+    "fixed_triplets_checked": 882
+  },
+  "integrity": {
+    "identity_overlap": [],
+    "path_overlap": [],
+    "same_identity_other_positive_negatives": 0,
+    "excluded_videos": {},
+    "excluded_negative_sources": {},
+    "train_triplets_sampled_and_checked": 1000
+  },
+  "decision": {
+    "training_approved": true,
+    "required_change": "Set RUN_TRAINING=True only; keep the current ROOT_FOLDER, SAVE_DIR, split, seeds and all hyperparameters.",
+    "evaluation_protocol": "First evaluate the new checkpoint with NB06 locked production fusion 0.425/0.475/0.100 and threshold 0.540 before any recalibration."
+  }
+}

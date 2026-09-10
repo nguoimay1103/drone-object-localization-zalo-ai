@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "source": "Kaggle fine-calibration artifacts supplied by the user",
+  "experiment": "identity_mining_v2_calibration",
+  "profile": "fine_mining_v2",
+  "cache_signature": {
+    "yolo_sha256": "eb4b471a364b708eb417cb3b0f3fb6a86933e9e5f7dee8fb9f4d250fe274baa3",
+    "siamese_sha256": "e8619e853a4efd93cf7575ef229f077189adea47a5969aba9c65b78e05d34e2d",
+    "gt_sha256": "b97a9f2392b5746534e4e1e7c1bc485488b2baa7b00ee35f500b5d7da6149597"
+  },
+  "search": {
+    "config_count": 6105,
+    "threshold_range": [0.54, 0.63],
+    "threshold_step": 0.0025,
+    "siamese_weight_range": [0.325, 0.5],
+    "siamese_weight_step": 0.0125,
+    "color_weight_range": [0.0, 0.125],
+    "color_weight_step": 0.0125
+  },
+  "coarse_default": {
+    "weights": {"yolo": 0.55, "siamese": 0.4, "color": 0.05},
+    "threshold": 0.58,
+    "mean_st_iou": 0.7173005994342097,
+    "detected_frames": 9246
+  },
+  "best": {
+    "weights": {"yolo": 0.5, "siamese": 0.425, "color": 0.075},
+    "threshold": 0.555,
+    "mean_st_iou": 0.7192783809279016,
+    "detected_frames": 9274,
+    "per_video": {
+      "BlackBox_0": 0.6845587678256847,
+      "BlackBox_1": 0.763864386562822,
+      "CardboardBox_0": 0.6102486196196244,
+      "CardboardBox_1": 0.8164373286580981,
+      "LifeJacket_0": 0.7321420229668049,
+      "LifeJacket_1": 0.7084191599343755
+    }
+  },
+  "comparison": {
+    "delta_vs_coarse": 0.001977781493691988,
+    "delta_vs_identity_v1_calibrated": -0.0027734097758498333,
+    "delta_vs_baseline_checkpoint_calibrated": 0.011861380927901677,
+    "identity_v1_calibrated_reference": 0.7220517907037515,
+    "baseline_checkpoint_calibrated_reference": 0.707417
+  },
+  "convergence": {
+    "best_is_on_threshold_boundary": false,
+    "best_is_on_siamese_weight_boundary": false,
+    "best_is_on_color_weight_boundary": false,
+    "configs_within_0_001_of_best": 4,
+    "configs_within_0_002_of_best": 70
+  },
+  "decision": {
+    "promote_as_production": false,
+    "production_checkpoint": "identity_v1",
+    "production_mean_st_iou": 0.7220517907037515,
+    "stop_further_mining_v2_calibration": true,
+    "reason": "The fine optimum is interior and remains 0.002773 below identity-v1. Further tuning on the same six development videos would increase selection overfit without evidence of a checkpoint advantage.",
+    "next_experiment": "temporal consistency and candidate linking using the identity-v1 production checkpoint"
+  },
+  "verification_limit": "Artifact contents were inspected locally; model inference itself was not rerun locally."
+}

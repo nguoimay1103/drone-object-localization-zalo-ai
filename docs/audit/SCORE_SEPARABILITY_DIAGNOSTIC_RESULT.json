@@ -1,0 +1,68 @@
+{
+  "status": "absolute_score_only_recovery_rejected",
+  "source_file": "user-provided-artifact/candidate_oracle_diagnostics_v1_frames.csv",
+  "label_definition": "positive iff GT exists and selected bbox IoU >= 0.5; negative otherwise",
+  "selected_population": {
+    "rows": 21870,
+    "positive": 8887,
+    "negative": 12983,
+    "roc_auc": 0.9806884336486935,
+    "average_precision": 0.9742757531922783
+  },
+  "weak_population": {
+    "definition": "selected_score < 0.54",
+    "rows": 13141,
+    "positive": 822,
+    "negative": 12319,
+    "positive_prevalence": 0.06255231717525303,
+    "roc_auc": 0.8951191846748707,
+    "average_precision": 0.36710104057864434,
+    "positive_score_median": 0.5005350746214391,
+    "negative_score_median": 0.3040066808462143
+  },
+  "weak_threshold_tradeoff": {
+    "0.46": {
+      "true_recovered": 584,
+      "false_admitted": 1444,
+      "new_precision": 0.2879684418145957
+    },
+    "0.48": {
+      "true_recovered": 513,
+      "false_admitted": 999,
+      "new_precision": 0.3392857142857143
+    },
+    "0.50": {
+      "true_recovered": 413,
+      "false_admitted": 614,
+      "new_precision": 0.4021421616358325
+    },
+    "0.52": {
+      "true_recovered": 252,
+      "false_admitted": 291,
+      "new_precision": 0.46408839779005523
+    }
+  },
+  "identity_optimal_f1_thresholds": {
+    "BlackBox": 0.581,
+    "CardboardBox": 0.486,
+    "LifeJacket": 0.556
+  },
+  "leave_one_identity_out_f1_transfer": {
+    "BlackBox": {
+      "selected_threshold": 0.522,
+      "default_f1": 0.8847225741069167,
+      "heldout_f1": 0.8791645947289906
+    },
+    "CardboardBox": {
+      "selected_threshold": 0.563,
+      "default_f1": 0.8927690263807174,
+      "heldout_f1": 0.8082644628099174
+    },
+    "LifeJacket": {
+      "selected_threshold": 0.498,
+      "default_f1": 0.9445238095238095,
+      "heldout_f1": 0.9100469903781606
+    }
+  },
+  "decision": "Do not implement global or Otsu-style adaptive thresholds from absolute fused score alone. Extend cache diagnostics with top1-top2 margin and selected YOLO/Siamese/Color component scores; test held-out separability before another recovery algorithm."
+}

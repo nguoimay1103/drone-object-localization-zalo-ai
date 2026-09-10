@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "source": "Kaggle mining_v2_diagnostics.json supplied by the user after frozen-positive revision",
+  "diagnostics_config_sha256": "03a691e53ec8ddbae2539d83e6327067b3411955c66cf54b32dec5698673c854",
+  "mining_detector_sha256": "eb4b471a364b708eb417cb3b0f3fb6a86933e9e5f7dee8fb9f4d250fe274baa3",
+  "frozen_positive_tree_sha256": "693e9b6ab039dcad5460ab80295e065880cadf8dd02b3b1f24425770b5f21fc8",
+  "frozen_positive_tree_jpg_files": 4017,
+  "videos": 14,
+  "physical_identities": 7,
+  "annotation_planned_positives": 4026,
+  "frozen_positive_files": 3975,
+  "frozen_anchor_files": 42,
+  "annotation_plan_delta": -51,
+  "duplicate_annotation_boxes_ignored": 63,
+  "checks": {
+    "schema_version_3": true,
+    "reuse_frozen_positives": true,
+    "detector_matches_nb06": true,
+    "per_video_frozen_counts_match_identity_v1_dataset": true,
+    "three_anchors_per_video": true,
+    "tree_file_count_matches_positive_plus_anchor_counts": true
+  },
+  "decision": {
+    "approved_for_mining": true,
+    "required_runtime_flags": {
+      "RUN_MINING": true,
+      "REUSE_FROZEN_POSITIVES": true,
+      "ALLOW_OVERWRITE": false
+    },
+    "required_output": "Use a new empty OUTPUT_DIR and return mining_summary.json plus mining_config.json before training."
+  }
+}

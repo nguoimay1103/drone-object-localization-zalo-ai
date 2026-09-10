@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "Kaggle mining_v2_diagnostics.json supplied by the user",
+  "config_sha256": "6d960cdcacc1fbe85a2e76dfdf4e98044bfcb49ea06e7a3ac83b39c192e3e86a",
+  "detector_sha256": "eb4b471a364b708eb417cb3b0f3fb6a86933e9e5f7dee8fb9f4d250fe274baa3",
+  "detector_matches_nb06": true,
+  "videos": 14,
+  "physical_identities": 7,
+  "video_frames": 80729,
+  "annotated_frames": 20106,
+  "planned_sampled_positive_boxes": 4026,
+  "anchors": 42,
+  "duplicate_annotation_boxes_ignored": 63,
+  "identity_v1_dataset_positive_files": 3975,
+  "positive_count_delta": 51,
+  "decision": {
+    "safe_to_start_mining_with_this_notebook_revision": false,
+    "reason": "Rebuilding positives would change 51 positive files as well as negatives, confounding the mining ablation.",
+    "code_action": "NB04 was revised to copy the exact identity-v1 anchors/positives and regenerate only negatives.",
+    "next_step": "Rerun diagnostics with the revised notebook and confirm frozen_positive_files/tree hash before mining."
+  }
+}

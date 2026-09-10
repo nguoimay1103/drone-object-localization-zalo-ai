@@ -1,0 +1,67 @@
+{
+  "experiment": "yolo_p2_detector_ab_v1",
+  "status": "training_complete_locked_evaluation_rejected",
+  "source_of_truth": "user-provided-artifact/yolo_p2_detector_ab_v1",
+  "supersedes": "The earlier results (22) artifact set is withdrawn.",
+  "dataset_manifest_sha256": "c1e80cc55e8d35c8ed4b00b04826506de5635eef404317a1d2f47d4522b1c345",
+  "dataset": {
+    "source_root": "/kaggle/input/datasets/phamnguyenanhtuan/data-train-yolo/yolo_dataset_doan_1",
+    "train_images": 18965,
+    "train_labels": 18965,
+    "val_images": 6041,
+    "val_labels": 6041
+  },
+  "pretrained_sha256": "0ebbc80d4a7680d14987a577cd21342b65ecfd94632bd9a8da63ae6417644ee1",
+  "paired_training": {
+    "seed": 2026,
+    "gpu_count": 2,
+    "gpu_type": "Tesla T4",
+    "batch_per_gpu": 16,
+    "total_batch": 32,
+    "epochs": 70,
+    "ultralytics": "8.3.221"
+  },
+  "variants": {
+    "p3_control": {
+      "strides": [
+        8,
+        16,
+        32
+      ],
+      "parameter_count": 2697555,
+      "precision": 0.97042,
+      "recall": 0.94515,
+      "map50": 0.97295,
+      "map50_95": 0.78842,
+      "elapsed_seconds": 15267.507744550705,
+      "best_weight_sha256": "d317a81a494113ddc789df116a7adb9ef90be362aa4ef7a63a06242f47843234"
+    },
+    "p2_stride4": {
+      "strides": [
+        4,
+        8,
+        16,
+        32
+      ],
+      "parameter_count": 2924724,
+      "precision": 0.97645,
+      "recall": 0.94053,
+      "map50": 0.97631,
+      "map50_95": 0.79593,
+      "elapsed_seconds": 17014.743292570114,
+      "best_weight_sha256": "8f8279f178dc7ec1f57a8b19a28ff7b470a4652398face895a00deef67d60e16"
+    }
+  },
+  "p2_delta_vs_p3": {
+    "precision": 0.00603,
+    "recall": -0.00462,
+    "map50": 0.00336,
+    "map50_95": 0.00751,
+    "parameter_count": 227169,
+    "training_seconds": 1747.235548019409
+  },
+  "validation_interpretation": "P2 improves precision and both mAP metrics, but recall decreases. Detector validation alone is insufficient to infer end-to-end localization improvement.",
+  "locked_evaluation_result": "docs/audit/YOLO_P2_DETECTOR_LOCKED_EVAL_V1_RESULT.json",
+  "score_calibration_result": "docs/audit/CHECKPOINT_SCORE_CALIBRATION_V1_RESULT.json",
+  "next_step": "Retain the production detector. Reproduce the original P3 training trajectory with seed 0, one T4, and batch 16 before designing another detector architecture."
+}

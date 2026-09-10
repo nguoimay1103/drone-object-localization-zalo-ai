@@ -1,0 +1,48 @@
+experiment: yolo_p3_original_reproduction_v1
+active_notebook: 03_train_yolo.ipynb
+purpose: reproduce_the_original_production_p3_training_trajectory
+
+runtime:
+  ultralytics: 8.3.221
+  device: "0"
+  gpu_count: 1
+  seed: 0
+  deterministic: true
+
+dataset:
+  root: /kaggle/input/datasets/phamnguyenanhtuan/data-train-yolo/yolo_dataset_doan_1
+  yaml: dataset.yaml
+  train_images: 18965
+  val_images: 6041
+  val_unique_instances: 6053
+  source_yaml_sha256: 86485722ab64b34d3b649f43b469b57101c2a8a9aae3a2b8b5415ffc67314ccd
+  train_manifest_sha256: 14397df2602a28a5bd68cb78ce9572ec34ff1decbb8d7a166dd4b6173c4aaad2
+  val_manifest_sha256: 68d9b4e0672408d4efd864b9b717fcffa6a9790986ecc47c2b7310fa21b4ff77
+  manifest_scope: image_relative_path_and_size_plus_label_bytes
+
+initialization:
+  architecture: ghosthead_p3_p4_p5
+  yaml_initial_nc: 80
+  explicit_scale_key: false
+  pretrained: yolo11n.pt
+  pretrained_sha256: 0ebbc80d4a7680d14987a577cd21342b65ecfd94632bd9a8da63ae6417644ee1
+  dataset_nc_override_during_train: 1
+
+train:
+  epochs: 70
+  imgsz: 640
+  batch: 16
+  workers: 2
+  lr0: 0.003
+  lrf: 0.01
+  amp: true
+  mixup: 0.05
+  degrees: 5.0
+  shear: 2.0
+  remaining_arguments: ultralytics_8_3_221_defaults
+
+checkpoint_guards:
+  expected_strides: [8, 16, 32]
+  expected_parameter_count: 2697555
+  full_validation_after_train: true
+  public_test_used_for_training_or_selection: false

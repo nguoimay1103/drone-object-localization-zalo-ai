@@ -1,0 +1,49 @@
+{
+  "status": "completed_diagnostic_only",
+  "source_directory": "user-provided-artifact/candidate_oracle_diagnostics_v1",
+  "production_predictions_unchanged": true,
+  "production_per_video_metric_exact_parity": true,
+  "total_gt_frames": 9505,
+  "production": {
+    "mean_st_iou": 0.740013088928747,
+    "detected_frames": 8890
+  },
+  "mean_video_metrics": {
+    "oracle_st_iou_upper_bound": 0.843612777598118,
+    "selected_prethreshold_st_iou": 0.346581590588753,
+    "accepted_pretemporal_st_iou": 0.6948763692160803,
+    "final_production_st_iou": 0.740013088928747
+  },
+  "failure_counts": {
+    "no_candidate": 118,
+    "detector_localization_miss": 375,
+    "matching_error": 125,
+    "threshold_rejection": 822,
+    "temporal_removal": 106,
+    "temporal_localization_degradation": 2,
+    "success": 7957
+  },
+  "threshold_rejection_by_identity": {
+    "BlackBox": 196,
+    "CardboardBox": 497,
+    "LifeJacket": 129
+  },
+  "temporal_effect": {
+    "gt_frames_helped": 5167,
+    "gt_frames_harmed": 3358,
+    "gt_frames_unchanged": 980,
+    "accepted_background_frames": 543,
+    "final_background_frames": 409
+  },
+  "cardboardbox_0": {
+    "oracle_st_iou_upper_bound": 0.785105381105582,
+    "accepted_pretemporal_st_iou": 0.4741952729482198,
+    "final_production_st_iou": 0.6043798708793505,
+    "oracle_recall_iou_05": 0.9221085759244689,
+    "selected_recall_iou_05": 0.8890637293469709,
+    "accepted_recall_iou_05": 0.5554681353265145,
+    "final_recall_iou_05": 0.7057435090479937,
+    "threshold_rejection_frames": 424
+  },
+  "decision": "Keep production 0.740013088928747. Do not lower the threshold globally. Test a common bracketed temporal hysteresis rule that admits weak candidates only between motion-consistent strong anchors, evaluated leave-one-identity-out."
+}

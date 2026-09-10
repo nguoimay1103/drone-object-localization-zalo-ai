@@ -1,0 +1,49 @@
+{
+  "experiment": "candidate_margin_diagnostics_v1",
+  "status": "completed_not_promoted",
+  "production_control": {
+    "mean_st_iou": 0.740013088928747,
+    "detected_frames": 8890,
+    "predictions_unchanged": true,
+    "per_video_metric_exact_parity": true
+  },
+  "weak_region": {
+    "definition": "selected_score < 0.54",
+    "rows": 13141,
+    "positive": 822,
+    "negative": 12319,
+    "positive_prevalence": 0.06255231717525303,
+    "features": {
+      "selected_score": {"roc_auc": 0.8951191846748707, "average_precision": 0.367101040578644},
+      "score_margin": {"roc_auc": 0.572780183085136, "average_precision": 0.13594569691840677},
+      "score_ratio": {"roc_auc": 0.623051950228917, "average_precision": 0.16900176293231273, "rows": 6363},
+      "selected_yolo": {"roc_auc": 0.8244468467891961, "average_precision": 0.20046244914536146},
+      "selected_siamese": {"roc_auc": 0.7840902694372174, "average_precision": 0.2214693557182371},
+      "selected_color": {"roc_auc": 0.5700806559763971, "average_precision": 0.09273344538540007},
+      "negative_candidate_count": {"roc_auc": 0.34503375297667893, "average_precision": 0.047114954024159814}
+    }
+  },
+  "identity_specific_evidence": {
+    "BlackBox": {
+      "best_component": "selected_siamese",
+      "roc_auc": 0.8680416789508741,
+      "average_precision": 0.47738173595547945
+    },
+    "CardboardBox": {
+      "best_component": "selected_siamese",
+      "roc_auc": 0.9295333678719021,
+      "average_precision": 0.5589650122845162
+    },
+    "LifeJacket": {
+      "best_component": "selected_color",
+      "roc_auc": 0.9429055516262179,
+      "average_precision": 0.445618877388178
+    }
+  },
+  "loio_failure_examples": {
+    "selected_siamese_heldout_CardboardBox": {"f1": 0.008016032064128256, "recall": 0.004024144869215292},
+    "selected_siamese_heldout_LifeJacket": {"f1": 0.0986159169550173, "false_positive_rate": 0.4695869269178393},
+    "selected_color_heldout_LifeJacket": {"f1": 0.055305466237942124, "false_positive_rate": 1.0}
+  },
+  "decision": "Do not promote margin-, ratio-, or component-threshold recovery. Component importance is identity-specific and held-out transfer is unstable. Keep production at 0.740013 and move the next experiment to detector candidate generation."
+}

@@ -1,0 +1,66 @@
+{
+  "status": "promoted_to_offline_production",
+  "source_artifact": "user-provided-artifact/temporal_gating_v1_segment_sweep_summary.json",
+  "artifact_naming_note": "The Kaggle artifact retained the earlier segment_sweep experiment name, but its recorded 630-config search space exactly matches the joint-refinement grid in notebook 06.",
+  "evaluation_scope": "six manually annotated public-test videos; offline selection score, not an unbiased leaderboard estimate",
+  "fixed_matching": {
+    "weights": {
+      "yolo": 0.425,
+      "siamese": 0.475,
+      "color": 0.1
+    },
+    "matching_threshold": 0.54
+  },
+  "legacy": {
+    "config": {
+      "max_gap": 5,
+      "min_seg_len": 3,
+      "max_center_speed": null,
+      "max_log_scale_speed": null
+    },
+    "mean_st_iou": 0.7220517907037515,
+    "detected_frames": 9295
+  },
+  "production": {
+    "config": {
+      "max_gap": 7,
+      "min_seg_len": 24,
+      "max_center_speed": 0.4,
+      "max_log_scale_speed": null
+    },
+    "mean_st_iou": 0.740013088928747,
+    "detected_frames": 8890,
+    "delta_vs_legacy": 0.01796129822499548,
+    "per_video": {
+      "BlackBox_0": 0.7020237555090911,
+      "BlackBox_1": 0.8141389663373035,
+      "CardboardBox_0": 0.6043798708793505,
+      "CardboardBox_1": 0.8157206489498665,
+      "LifeJacket_0": 0.7373871146386562,
+      "LifeJacket_1": 0.7664281772582142
+    }
+  },
+  "selection_evidence": {
+    "gap_neighbors": {
+      "6": 0.7393837890362364,
+      "7": 0.740013088928747,
+      "8": 0.7391944998079357
+    },
+    "segment_neighbors": {
+      "22": 0.7390118386547012,
+      "24": 0.740013088928747,
+      "25": 0.7391523389105353
+    },
+    "center_neighbors": {
+      "0.4": 0.740013088928747,
+      "0.45": 0.7385036494867764,
+      "0.5": 0.7387012668012618
+    },
+    "decision": "Stop temporal tuning and lock this configuration; further selection on the same six videos has increasing overfit risk."
+  },
+  "cache_signature": {
+    "yolo_sha256": "eb4b471a364b708eb417cb3b0f3fb6a86933e9e5f7dee8fb9f4d250fe274baa3",
+    "siamese_sha256": "4a1f438d1920e60129ceb89a153c047c27ce904214fc65e9a51f6d458b52839d",
+    "gt_sha256": "b97a9f2392b5746534e4e1e7c1bc485488b2baa7b00ee35f500b5d7da6149597"
+  }
+}

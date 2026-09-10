@@ -1,0 +1,50 @@
+{
+  "status": "rejected_not_promoted",
+  "source_directory": "user-provided-artifact/temporal_reranking_v1_identity_cv",
+  "evaluation_scope": "three leave-one-identity-out folds over six manually annotated public-test videos",
+  "production_control": {
+    "mean_st_iou": 0.740013088928747,
+    "detected_frames": 8890
+  },
+  "cross_validation": {
+    "weight_zero_control_exact_prediction_parity": true,
+    "recommended_config": {
+      "top_k": 3,
+      "neighbor_radius": 1,
+      "rerank_weight": 0.0,
+      "motion_scale": 0.4
+    },
+    "recommendation_votes": 3,
+    "mean_cv_delta": 0.0,
+    "improved_identity_count": 0,
+    "worst_identity_delta": 0.0,
+    "promotion_passed": false
+  },
+  "grid_diagnostics": {
+    "config_count": 24,
+    "weight_zero_config_count": 6,
+    "enabled_config_count": 18,
+    "distinct_metric_outputs": 4,
+    "enabled_mean_delta_range": [
+      -0.0006477845723635,
+      -0.0005802193171956
+    ],
+    "enabled_detected_frame_delta_range": [
+      7,
+      8
+    ],
+    "unchanged_st_iou_videos_for_all_enabled_configs": [
+      "BlackBox_0",
+      "BlackBox_1",
+      "CardboardBox_0",
+      "CardboardBox_1",
+      "LifeJacket_0"
+    ],
+    "only_changed_video": "LifeJacket_1",
+    "lifejacket_1_delta_range": [
+      -0.003886707434180958,
+      -0.0034813159031740204
+    ]
+  },
+  "decision": "Keep reranking disabled and retain production offline ST-IoU 0.740013088928747. Run candidate-cache oracle error decomposition before choosing the next model or inference change."
+}

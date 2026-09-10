@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "source": "Kaggle temporal fine-grid artifacts supplied by the user",
+  "experiment": "temporal_gating_v1_fine",
+  "cache_signature": {
+    "yolo_sha256": "eb4b471a364b708eb417cb3b0f3fb6a86933e9e5f7dee8fb9f4d250fe274baa3",
+    "siamese_sha256": "4a1f438d1920e60129ceb89a153c047c27ce904214fc65e9a51f6d458b52839d",
+    "gt_sha256": "b97a9f2392b5746534e4e1e7c1bc485488b2baa7b00ee35f500b5d7da6149597"
+  },
+  "search_config_count": 352,
+  "best": {
+    "config": {"max_gap": 4, "min_seg_len": 12, "max_center_speed": 0.5, "max_log_scale_speed": null},
+    "mean_st_iou": 0.7356205884985864,
+    "detected_frames": 8850,
+    "delta_vs_legacy": 0.013568797794834886,
+    "per_video": {
+      "BlackBox_0": 0.7154822051959483,
+      "BlackBox_1": 0.7871495960671645,
+      "CardboardBox_0": 0.5718700941922125,
+      "CardboardBox_1": 0.8157206489498665,
+      "LifeJacket_0": 0.7424860849104734,
+      "LifeJacket_1": 0.7810149016758529
+    }
+  },
+  "boundary_analysis": {
+    "max_gap_is_boundary": false,
+    "min_seg_len_is_upper_boundary": true,
+    "center_gate_plateau": [0.5, 2.0],
+    "best_without_center_gate": 0.7345674400335435,
+    "best_center_gate_delta": 0.0010531484650429068,
+    "best_score_by_min_segment": {
+      "3": 0.7248562083873447,
+      "4": 0.7257790623029893,
+      "5": 0.7264463880893582,
+      "6": 0.726990005012472,
+      "7": 0.7270146000789923,
+      "8": 0.7290224169501426,
+      "10": 0.730457658984002,
+      "12": 0.7356205884985864
+    }
+  },
+  "decision": {
+    "promote_now": false,
+    "run_segment_length_sweep": true,
+    "reason": "Mean ST-IoU is still increasing at the upper min-segment boundary. Run one sparse extension through 50 frames before locking production."
+  },
+  "verification_limit": "Artifacts were inspected locally; inference/cache replay was not rerun locally."
+}

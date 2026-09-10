@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "experiment": "siamese_identity_v1_calibration_coarse",
+  "source": "Kaggle calibration_summary.json and calibration_results.csv supplied by the user",
+  "reproduced_locally": false,
+  "cache_replay": {
+    "mean_st_iou": 0.6984256424207067,
+    "detected_frames": 9254,
+    "matches_prior_identity_v1_run": true
+  },
+  "search": {
+    "configurations": 1705,
+    "best_weights": {
+      "yolo": 0.4,
+      "siamese": 0.45,
+      "color": 0.15
+    },
+    "best_matching_threshold": 0.51,
+    "best_mean_st_iou": 0.7202741100547837,
+    "best_detected_frames": 9358,
+    "delta_vs_identity_v1_default": 0.021848467634076996,
+    "delta_vs_uncalibrated_baseline_0_700454": 0.01982011005478368,
+    "configs_above_uncalibrated_baseline": 86,
+    "configs_above_identity_v1_default": 99,
+    "configs_within_0_001_of_best": 2,
+    "configs_within_0_002_of_best": 3,
+    "configs_within_0_005_of_best": 11
+  },
+  "per_video": {
+    "BlackBox_0": {"score": 0.6882517075091511, "delta_vs_identity_default": 0.0523507825241395, "delta_vs_uncalibrated_baseline": 0.0868517075091511},
+    "BlackBox_1": {"score": 0.7371990943451138, "delta_vs_identity_default": 0.0039655383673196, "delta_vs_uncalibrated_baseline": -0.0284009056548862},
+    "CardboardBox_0": {"score": 0.611449692102314, "delta_vs_identity_default": 0.0940840851403604, "delta_vs_uncalibrated_baseline": 0.0005496921023140},
+    "CardboardBox_1": {"score": 0.8172779398002068, "delta_vs_identity_default": 0.0426737018995378, "delta_vs_uncalibrated_baseline": 0.0254779398002068},
+    "LifeJacket_0": {"score": 0.7344024735753765, "delta_vs_identity_default": -0.0221562251919211, "delta_vs_uncalibrated_baseline": -0.0125975264246235},
+    "LifeJacket_1": {"score": 0.7330637529965398, "delta_vs_identity_default": -0.0398270769349748, "delta_vs_uncalibrated_baseline": 0.0470637529965398}
+  },
+  "stability": {
+    "best_weight_threshold_0_50": 0.7158278710526388,
+    "best_weight_threshold_0_51": 0.7202741100547837,
+    "best_weight_threshold_0_52": 0.7078561813645621,
+    "observation": "The optimum is threshold-sensitive and the best color weight is on the lower search boundary."
+  },
+  "decision": {
+    "status": "best_offline_checkpoint_after_equal_coarse_search",
+    "promote_identity_v1_for_current_offline_pipeline": true,
+    "baseline_calibrated_mean_st_iou_rounded": 0.707417,
+    "advantage_over_calibrated_baseline": 0.0128571100547837,
+    "reason": "Both checkpoints received the same coarse grid; identity-v1 achieved the higher optimum.",
+    "next_controlled_experiment": "Reuse the identity-v1 candidate cache for a fine grid around the coarse optimum, including lower color weights."
+  }
+}

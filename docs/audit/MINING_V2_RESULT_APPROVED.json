@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "source": "Kaggle mining_summary.json and mining_config.json supplied by the user",
+  "status": "completed",
+  "config_sha256": "03a691e53ec8ddbae2539d83e6327067b3411955c66cf54b32dec5698673c854",
+  "detector_sha256": "eb4b471a364b708eb417cb3b0f3fb6a86933e9e5f7dee8fb9f4d250fe274baa3",
+  "frozen_positive_tree_sha256": "693e9b6ab039dcad5460ab80295e065880cadf8dd02b3b1f24425770b5f21fc8",
+  "totals": {
+    "sampled_frames": 16151,
+    "positive_crops": 3975,
+    "anchors": 42,
+    "detector_candidates": 7826,
+    "hard_negatives": 2833,
+    "background_negatives": 32302,
+    "negatives": 35135,
+    "inference_errors": 0,
+    "hard_quota_requested": 32322,
+    "hard_quota_unfilled": 29489,
+    "negative_to_positive_ratio": 8.838993710691824
+  },
+  "rejections": {
+    "expanded_gt_overlap": 4648,
+    "too_small": 255,
+    "duplicate_background": 9
+  },
+  "integrity": {
+    "status": "passed",
+    "manifest_rows": 35135,
+    "unique_paths": 35135,
+    "all_negative_gt_overlap_metrics_zero": true,
+    "file_counts_match": true
+  },
+  "comparison_to_identity_v1_dataset": {
+    "positive_delta": 0,
+    "anchor_delta": 0,
+    "background_negative_delta": 0,
+    "old_hard_negatives": 3594,
+    "new_hard_negatives": 2833,
+    "hard_negative_delta": -761,
+    "hard_negative_relative_delta_percent": -21.17417918753478,
+    "old_total_negatives": 35896,
+    "new_total_negatives": 35135,
+    "interpretation": "The controlled dataset changes only negative pixels. Most removed detector candidates overlap expanded GT; quota is an upper bound rather than a required balance target."
+  },
+  "decision": {
+    "dataset_approved": true,
+    "approved_next_step": "Run NB05 identity_mining_v2 diagnostics with RUN_TRAINING=False and a new SAVE_DIR.",
+    "training_approved_immediately": false,
+    "reason_training_waits": "NB05 must first verify split-specific new negative counts, provenance and path/identity disjointness."
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "experiment": "anchor_preserving_residual_v2_identity_cv",
+  "source_directory": "user-provided-artifact/anchor_preserving_residual_v2_identity_cv",
+  "status": "completed_not_promoted",
+  "production_control": {
+    "mean_st_iou": 0.740013088928747,
+    "detected_frames": 8890,
+    "exact_noop_prediction_parity": true,
+    "production_predictions_untouched": true
+  },
+  "recommended_config": {
+    "top_k": 5,
+    "weak_threshold": 0.5,
+    "max_anchor_gap": 12,
+    "max_center_speed": 0.6,
+    "max_candidate_gap": 3,
+    "min_recovered_frames": 3,
+    "min_gap_coverage": 0.5
+  },
+  "full_public_descriptive": {
+    "mean_st_iou": 0.7404244276511514,
+    "delta": 0.0004113387224043974,
+    "detected_frames": 8895,
+    "recovered_frame_count": 5,
+    "recovered_gap_count": 1,
+    "changed_video": "CardboardBox_0",
+    "changed_video_delta": 0.0024680323344258293
+  },
+  "identity_held_out_cv": {
+    "mean_delta": 0.0,
+    "improved_identity_count": 0,
+    "identity_count": 3,
+    "worst_identity_delta": 0.0,
+    "recommendation_votes": 2,
+    "promotion_passed": false
+  },
+  "coverage_diagnostics": {
+    "candidate_gap_count": 44,
+    "anchor_gap_too_long_count_at_recommended_max_anchor_gap_12": 43,
+    "recovered_gap_count": 1,
+    "max_anchor_gap_20_added_no_recovered_frames": true,
+    "interpretation_limit": "The artifact does not distinguish gaps longer than 20 from 13-20 frame gaps that fail path coverage or motion checks; do not claim all 43 gaps exceed 20.",
+    "scene_discontinuity_reset_count_reported": 0,
+    "scene_reset_interpretation": "The implementation rejects anchor_gap_too_long before testing endpoint motion, so zero is not evidence that camera cuts are absent. Long gaps remained safely unrecovered."
+  },
+  "decision": "Do not promote. Disable the runner and retain production 0.740013088928747. The tested increase from max anchor gap 12 to 20 recovers no additional frames; do not widen beyond 20 because longer target-absence or camera-pan intervals increase risk and the only observed gain does not transfer under identity-held-out CV.",
+  "next_direction": "Stop threshold-based temporal recovery. Measure spatial localization headroom on already-correct production frames before testing any bbox-only refinement that preserves the temporal support set."
+}
